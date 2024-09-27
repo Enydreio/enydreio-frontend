@@ -1,0 +1,76 @@
+.apps-container {
+    display: flex;
+    height: 100vh;
+    margin-left: 15vw;
+}
+
+.apps-main {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f5f7fa;
+}
+
+.apps-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.apps-header input[type="text"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.apps-header {
+  margin: 0 2.5% 0 2.5%;
+}
+.apps-list {
+  overflow-y: auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 2.5% 0 2.5%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
+}
+
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6a11cb;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5a0fb0;
+}

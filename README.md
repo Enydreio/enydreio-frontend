@@ -1,4 +1,4 @@
-# enydreio-frontend
+# enydreio
 
 ## Project setup
 ```

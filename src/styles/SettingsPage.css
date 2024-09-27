@@ -1,0 +1,50 @@
+.settings-container {
+    padding: 20px;
+    background-color: #f5f7fa;
+    margin-left: 15vw;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .settings-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #6a11cb;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #5a0f9e;
+    transform: scale(1.05);
+  }
+  
