@@ -1,15 +1,25 @@
 <template>
-  <aside class="sidebar">
-    <div class="profile-section">
-      <img src="@/assets/avatar.svg" alt="User Avatar" class="avatar">
-      <h3>John Doe</h3> <!-- Benutzername -->
+  <div>
+    <div v-if="!isSidebarVisible" class="hamburger-icon" @click="toggleSidebar">
+      &#9776; <!-- Hamburger-Symbol -->
     </div>
-    <nav class="nav-links">
-      <router-link to="/dashboard" class="nav-link">Dashboard</router-link> <!-- Link zum Dashboard -->
-      <router-link to="/apps" class="nav-link">Apps</router-link> <!-- Link zu den Apps -->
-      <router-link to="/settings" class="nav-link">Settings</router-link> <!-- Link zu den Einstellungen -->
-    </nav>
-  </aside>
+
+    <aside :class="{'sidebar': true, 'sidebar-collapsed': !isSidebarVisible}">
+      <div class="close-button">
+        <span @click="toggleSidebar">&times;</span> <!-- X-Symbol -->
+      </div>
+
+      <div class="profile-section">
+        <img src="@/assets/avatar.svg" alt="User Avatar" class="avatar">
+        <h3>John Doe</h3>
+      </div>
+      <nav class="nav-links">
+        <router-link to="/apps" class="nav-link">Apps</router-link>
+        <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
+        <router-link to="/settings" class="nav-link">Settings</router-link>
+      </nav>
+    </aside>
+  </div>
 </template>
 
 <script src="../scripts/Sidebar.js"></script>

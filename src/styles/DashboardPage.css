@@ -1,4 +1,4 @@
-.dashboard-main::-webkit-scrollbar{
+.dashboard-main::-webkit-scrollbar {
   display: none;
 }
 
@@ -6,19 +6,15 @@
   flex-grow: 1;
   padding: 20px;
   background-color: #f5f7fa;
-  overflow: scroll;  
-  scrollbar-width: none;  
+  overflow: scroll;
+  scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
 .dashboard-container {
   display: flex;
   height: 100vh;
-  margin-left: 15vw;
-}
-
-h2 {
-  margin-left: 2.5%;
+  background-color: #f5f7fa;
 }
 
 .dashboard-header {
@@ -41,7 +37,9 @@ h2 {
   margin: 0 2.5% 0 2.5%;
 }
 
-.card, .diagram, #activity-list {
+.card,
+.diagram,
+#activity-list {
   background-color: white;
   padding: 20px;
   border-radius: 5px;
@@ -54,7 +52,7 @@ h2 {
 }
 
 .charts-section {
-  margin-bottom: 20px;  
+  margin-bottom: 20px;
   margin-top: 20px;
 }
 
@@ -71,21 +69,15 @@ h2 {
   margin-bottom: 10px;
 }
 
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  background-color: #f5f7fa;
-}
-
 .charts-container {
-  display: flex; /* Use flexbox to arrange the charts */
+  display: flex; /* Flexbox für die Anordnung der Charts */
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .charts-container canvas {
   margin: 2.5%;
-  flex: 1; /* Allow the canvas elements to grow equally */
-  max-width: 45%; /* Limit the maximum width to avoid overflow */
-  max-height: 30vh; /* Set a height for the charts */
+  flex: 1; /* Lassen Sie die Canvas-Elemente gleichmäßig wachsen */
+  max-width: 45%; /* Maximale Breite, um Überlauf zu vermeiden */
+  max-height: 30vh; /* Höhe für die Charts festlegen */
 }

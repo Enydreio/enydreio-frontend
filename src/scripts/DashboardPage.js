@@ -1,9 +1,9 @@
 import { Chart, registerables } from 'chart.js';
-import Sidebar from '../components/main-sidebar.vue';
+import SidebarToggle from '../components/SidebarToggle.vue';
 
 export default {
   name: 'DashboardPage',
-  components: { Sidebar },
+  components: { SidebarToggle },
   data() {
     return {
       activeAppsCount: 5,
@@ -17,22 +17,21 @@ export default {
         { id: 2, description: 'App B encountered an error', timestamp: '2024-09-25 12:25' },
         { id: 3, description: 'User Jane Doe updated App C', timestamp: '2024-09-25 12:20' },
       ],
+      isSidebarVisible: true, // Zustand der Sidebar
     };
   },
   mounted() {
-    // Ensure the chart is rendered after the component is mounted
     this.renderDashboardCharts();
   },
   methods: {
+    handleSidebarToggle(newState) {
+      this.isSidebarVisible = newState; // Sidebar Sichtbarkeit aktualisieren
+    },
     renderDashboardCharts() {
-      // Register Chart.js components
       Chart.register(...registerables);
-
-      // Access the chart references
       const resourceCtx = this.$refs.resourceUsageChart.getContext('2d');
       const costCtx = this.$refs.costChart.getContext('2d');
 
-      // Create Resource Usage Chart
       new Chart(resourceCtx, {
         type: 'line',
         data: {
@@ -57,7 +56,6 @@ export default {
         }
       });
 
-      // Create Cost Overview Chart
       new Chart(costCtx, {
         type: 'bar',
         data: {

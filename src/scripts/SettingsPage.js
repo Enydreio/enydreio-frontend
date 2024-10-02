@@ -1,17 +1,21 @@
-import Sidebar from '@/components/main-sidebar.vue'; // importiere die Sidebar
+import SidebarToggle from '@/components/SidebarToggle.vue'; // importiere die SidebarToggle
 
 export default {
   name: 'SettingsPage',
   components: {
-    Sidebar,
+    SidebarToggle,
   },
   data() {
     return {
       username: '',
-      email: ''
+      email: '',
+      isSidebarVisible: true, // Standardmäßig sichtbar
     };
   },
   methods: {
+    handleSidebarToggle(newState) {
+      this.isSidebarVisible = newState; // Wechselt die Sichtbarkeit der Sidebar
+    },
     updateSettings() {
       console.log(`Benutzername: ${this.username}, E-Mail: ${this.email}`);
     }

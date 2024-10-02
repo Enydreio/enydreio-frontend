@@ -1,20 +1,24 @@
-// scripts/AppsPage.js
-import Sidebar from '../components/main-sidebar.vue';
-import AppDetailsModal from '../components/AppDetailsModal.vue'; // Import your modal component
+import AppDetailsModal from '@/components/AppDetailsModal.vue';
+import SidebarToggle from '@/components/SidebarToggle.vue';
 
 export default {
   name: 'AppsPage',
-  components: { Sidebar, AppDetailsModal },
+  components: {
+    AppDetailsModal,
+    SidebarToggle,
+  },
   data() {
     return {
       searchQuery: '',
       sortField: '',
       sortOrder: '↑', // Default sorting order
+      isSidebarVisible: true, // Zustand der Sidebar
+      isGridView: false, // Zustand der Ansicht (Detailansicht oder Kachelansicht)
       apps: [
         { id: 1, name: 'App A', isActive: true, lastActive: '2024-09-25 12:30', userCount: 15, resourceUsage: 45 },
         { id: 2, name: 'App B', isActive: false, lastActive: '2024-09-24 11:20', userCount: 5, resourceUsage: 10 },
         { id: 3, name: 'App C', isActive: true, lastActive: '2024-09-23 09:15', userCount: 30, resourceUsage: 65 },
-        // Add more apps as needed
+        // Weitere Apps hier hinzufügen
       ],
       selectedApp: null,
       isModalVisible: false,
@@ -22,12 +26,10 @@ export default {
   },
   computed: {
     filteredApps() {
-      // Filter apps based on the search query
       let filtered = this.apps.filter(app => {
         return app.name.toLowerCase().includes(this.searchQuery.toLowerCase());
       });
 
-      // Sort filtered apps
       if (this.sortField) {
         filtered.sort((a, b) => {
           const modifier = this.sortOrder === '↑' ? 1 : -1;
@@ -40,7 +42,7 @@ export default {
           } else if (this.sortField === 'resourceUsage') {
             return (a.resourceUsage - b.resourceUsage) * modifier;
           } else if (this.sortField === 'isActive') {
-            return (a.isActive === b.isActive ? 0 : a.isActive ? -1 : 1) * modifier; // Active first
+            return (a.isActive === b.isActive ? 0 : a.isActive ? -1 : 1) * modifier; // Aktive zuerst
           }
           return 0;
         });
@@ -50,6 +52,9 @@ export default {
     },
   },
   methods: {
+    handleSidebarToggle(newState) {
+      this.isSidebarVisible = newState; // Wechselt die Sichtbarkeit der Sidebar
+    },
     viewDetails(app) {
       this.selectedApp = app;
       this.isModalVisible = true;
@@ -58,13 +63,12 @@ export default {
       this.selectedApp = null;
       this.isModalVisible = false;
     },
-    editApp(appId) {
-      console.log('Edit app ID:', appId);
-    },
     sortBy(field) {
-      // Toggle sorting order if already sorted by the same field
       this.sortField = this.sortField === field ? '' : field;
       this.sortOrder = this.sortField ? (this.sortOrder === '↑' ? '↓' : '↑') : '↑';
+    },
+    toggleView() {
+      this.isGridView = !this.isGridView; // Wechselt die Ansicht zwischen Grid und Detail
     },
   },
 };
