@@ -64,13 +64,15 @@ export default {
             y: {
               beginAtZero: true,
             }
-          }
+          },
+          animations: false
         }
       });
 
       // Create Cost Overview Chart
       new Chart(costCtx, {
         type: 'bar',
+        
         data: {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
           datasets: [{
@@ -88,7 +90,8 @@ export default {
             y: {
               beginAtZero: true,
             }
-          }
+          },
+          animations: false
         }
       });
     },

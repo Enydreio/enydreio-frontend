@@ -34,7 +34,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  margin: 0 2.5% 0 2.5%;
+  margin-right: 2.5%;
 }
 
 .card,
@@ -47,13 +47,14 @@
 }
 
 #activity-list {
-  margin: 0 2.5% 0 2.5%;
+  margin-right: 2.5%;
   max-height: 50%;
 }
 
 .charts-section {
   margin-bottom: 20px;
   margin-top: 20px;
+  margin-right: 2.5%;
 }
 
 .recent-activity {
@@ -76,8 +77,19 @@
 }
 
 .charts-container canvas {
-  margin: 2.5%;
   flex: 1; /* Lassen Sie die Canvas-Elemente gleichmäßig wachsen */
-  max-width: 45%; /* Maximale Breite, um Überlauf zu vermeiden */
+  max-width: 50%; /* Maximale Breite, um Überlauf zu vermeiden */
   max-height: 30vh; /* Höhe für die Charts festlegen */
+}
+
+.diagram {
+  margin-bottom: 2%;
+}
+
+.left-diagram {
+  margin-right: 1%;
+}
+
+.right-diagram {
+  margin-left: 1%;
 }

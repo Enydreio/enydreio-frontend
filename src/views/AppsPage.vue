@@ -5,26 +5,30 @@
       <header class="apps-header">
         <div id="apps-header-box">
           <h1>Your Apps</h1>
-          <input type="text" placeholder="Search Apps..." v-model="searchQuery" />
+          <input type="text" placeholder="Search..."/>
         </div>
-        <button id="view-button" @click="toggleView">{{ isGridView ? 'Switch to Detail View' : 'Switch to Grid View' }}</button>
+        <div id="button-panel">
+          <button id="grid-view-button" @click="toggleView" :disabled="isGridView"></button>
+          <button id="detail-view-button" @click="toggleView" :disabled="!isGridView"></button>
+        </div>
       </header>
 
       <section class="apps-list">
         <div v-if="isGridView" class="grid-view">
           <div v-for="app in filteredApps" :key="app.id" class="grid-item">
-            <span>{{ app.name }}</span>
-            <button>Start</button>
+            <span id="name">{{ app.name }}</span>
+            <div id="application-image"></div>
+            <div id="open-button-box"><button @click="viewDetails(app)" id="open-button"></button></div>
           </div>
         </div>
-        
+
         <table v-else>
           <thead>
             <tr>
               <th @click="sortBy('name')">App Name <span v-if="sortField === 'name'">{{ sortOrder }}</span></th>
               <th @click="sortBy('isActive')">Status <span v-if="sortField === 'isActive'">{{ sortOrder }}</span></th>
               <th @click="sortBy('lastActive')">Last Active <span v-if="sortField === 'lastActive'">{{ sortOrder }}</span></th>
-              <th @click="sortBy('userCount')">Users <span v-if="sortField === 'userCount'">{{ sortOrder }}</span></th>
+              <th @click="sortBy('url')">URL <span v-if="sortField === 'url'">{{ sortOrder }}</span></th>
               <th @click="sortBy('resourceUsage')">Resource Usage <span v-if="sortField === 'resourceUsage'">{{ sortOrder }}</span></th>
               <th>Actions</th>
             </tr>
@@ -36,10 +40,11 @@
                 {{ app.isActive ? 'Active' : 'Inactive' }}
               </td>
               <td>{{ app.lastActive }}</td>
-              <td>{{ app.userCount }}</td>
+              <td>{{ app.url }}</td>
               <td>{{ app.resourceUsage }}%</td>
               <td>
-                <button @click="viewDetails(app)">View</button>
+                <button class="view-button" @click="viewDetails(app)">View</button>
+                <button class="start-button" @click="openEditModal(app)">Edit</button>
               </td>
             </tr>
           </tbody>
@@ -53,10 +58,19 @@
         :isVisible="isModalVisible"
         @close="closeModal"
       />
+
+      <!-- Modal for Editing App -->
+      <AppEditModal
+        v-if="isEditModalVisible"
+        :app="selectedApp"
+        :isVisible="isEditModalVisible"
+        @close="closeEditModal"
+      />
     </main>
     </SidebarToggle>
   </div>
 </template>
 
 <script src="../scripts/AppsPage.js"></script>
-<style src="../styles/AppsPage.css"></style>
+
+<style src="../styles/AppsPage.css" scoped></style>

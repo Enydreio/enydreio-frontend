@@ -29,10 +29,10 @@
         <section class="charts-section">
           <h2>Resource Usage Over Time</h2>
           <div class="charts-container">
-            <canvas class="diagram" ref="resourceUsageChart"></canvas>
-            <canvas class="diagram" ref="costChart"></canvas>
-            <canvas class="diagram" ref="extraChart"></canvas>
-            <canvas class="diagram" ref="extraChart2"></canvas>
+            <canvas class="diagram left-diagram" ref="resourceUsageChart"></canvas>
+            <canvas class="diagram right-diagram" ref="costChart"></canvas>
+            <canvas class="diagram left-diagram" ref="extraChart"></canvas>
+            <canvas class="diagram right-diagram" ref="extraChart2"></canvas>
           </div>
         </section>
 

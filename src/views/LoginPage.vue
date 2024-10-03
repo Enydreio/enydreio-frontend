@@ -8,8 +8,8 @@
   
           <label for="password">Password:</label>
           <input v-model="password" type="password" id="password" required>
-  
-          <button type="submit">Sign In</button>
+
+          <button id="submit-button" type="submit">Sign In</button>
         </form>
         <a href="#">Forgot Password?</a>
       </div>

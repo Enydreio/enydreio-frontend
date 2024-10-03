@@ -1,27 +1,29 @@
 import AppDetailsModal from '@/components/AppDetailsModal.vue';
+import AppEditModal from '@/components/EditAppModal.vue'; // New Modal for editing
 import SidebarToggle from '@/components/SidebarToggle.vue';
 
 export default {
   name: 'AppsPage',
   components: {
     AppDetailsModal,
+    AppEditModal,  // New Modal component
     SidebarToggle,
   },
   data() {
     return {
       searchQuery: '',
       sortField: '',
-      sortOrder: '↑', // Default sorting order
-      isSidebarVisible: true, // Zustand der Sidebar
-      isGridView: false, // Zustand der Ansicht (Detailansicht oder Kachelansicht)
+      sortOrder: '↑',
+      isSidebarVisible: true,
+      isGridView: true,
       apps: [
-        { id: 1, name: 'App A', isActive: true, lastActive: '2024-09-25 12:30', userCount: 15, resourceUsage: 45 },
-        { id: 2, name: 'App B', isActive: false, lastActive: '2024-09-24 11:20', userCount: 5, resourceUsage: 10 },
-        { id: 3, name: 'App C', isActive: true, lastActive: '2024-09-23 09:15', userCount: 30, resourceUsage: 65 },
-        // Weitere Apps hier hinzufügen
+        { id: 1, name: 'App A', isActive: true, lastActive: '2024-09-25 12:30', userCount: 15, resourceUsage: 45, url: "localhost:8080" },
+        { id: 2, name: 'App B', isActive: false, lastActive: '2024-09-24 11:20', userCount: 5, resourceUsage: 10, url: "localhost:8081" },
+        { id: 3, name: 'App C', isActive: true, lastActive: '2024-09-23 09:15', userCount: 30, resourceUsage: 65, url: "localhost:8082" },
       ],
       selectedApp: null,
       isModalVisible: false,
+      isEditModalVisible: false, // State for edit modal
     };
   },
   computed: {
@@ -37,12 +39,12 @@ export default {
             return a.name.localeCompare(b.name) * modifier;
           } else if (this.sortField === 'lastActive') {
             return new Date(a.lastActive) - new Date(b.lastActive) * modifier;
-          } else if (this.sortField === 'userCount') {
-            return (a.userCount - b.userCount) * modifier;
+          } else if (this.sortField === 'url') {
+            return a.url.localeCompare(b.url) * modifier;
           } else if (this.sortField === 'resourceUsage') {
             return (a.resourceUsage - b.resourceUsage) * modifier;
           } else if (this.sortField === 'isActive') {
-            return (a.isActive === b.isActive ? 0 : a.isActive ? -1 : 1) * modifier; // Aktive zuerst
+            return (a.isActive === b.isActive ? 0 : a.isActive ? -1 : 1) * modifier;
           }
           return 0;
         });
@@ -53,7 +55,7 @@ export default {
   },
   methods: {
     handleSidebarToggle(newState) {
-      this.isSidebarVisible = newState; // Wechselt die Sichtbarkeit der Sidebar
+      this.isSidebarVisible = newState;
     },
     viewDetails(app) {
       this.selectedApp = app;
@@ -63,12 +65,20 @@ export default {
       this.selectedApp = null;
       this.isModalVisible = false;
     },
+    openEditModal(app) {
+      this.selectedApp = app;
+      this.isEditModalVisible = true;
+    },
+    closeEditModal() {
+      this.selectedApp = null;
+      this.isEditModalVisible = false;
+    },
     sortBy(field) {
       this.sortField = this.sortField === field ? '' : field;
       this.sortOrder = this.sortField ? (this.sortOrder === '↑' ? '↓' : '↑') : '↑';
     },
     toggleView() {
-      this.isGridView = !this.isGridView; // Wechselt die Ansicht zwischen Grid und Detail
+      this.isGridView = !this.isGridView;
     },
   },
 };

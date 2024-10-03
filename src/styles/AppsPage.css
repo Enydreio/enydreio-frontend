@@ -7,6 +7,8 @@
 #apps-header-box {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 #apps-header-box input[type="text"] {
@@ -24,6 +26,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 5px;
+  margin-right: 2.5%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -37,13 +40,14 @@
 .grid-item {
   display: flex;
   flex-direction: column;
-  height: 20vh;
-  width: 15vw;
-  padding: 10px;
+  align-items: center;
+  height: 25vh;
+  width: 15vw; 
   border: 1px solid #ddd;
   border-radius: 5px;
   text-align: center;
   background-color: #f9f9f9;
+  padding: .5%;
 }
 
 table {
@@ -75,7 +79,7 @@ tr:hover {
   color: red;
 }
 
-button {
+.view-button, .start-button {
   padding: 5px 10px;
   margin-right: 5px;
   border: none;
@@ -85,6 +89,54 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.view-button:hover, .start-button:hover {
   background-color: #5a0fb0;
 }
+
+#grid-view-button, #detail-view-button, #open-button {
+  width: 3vh; /* Breite des Bildes */
+  height: 3vh; /* Höhe des Bildes */
+  background-size: cover;
+  cursor: pointer;
+  border: none;
+  background-color: #ffffff;
+}
+
+#open-button {
+  padding: 1%;
+  background-color: #f9f9f9;
+}
+
+#open-button-box {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  width: 100%;
+}
+
+#application-image {
+  max-width: 100%;
+  min-width: 75%;
+  height: 20vh;
+  background-image: url(../assets/application.png);
+  background-size: cover;
+}
+
+#grid-view-button {
+  background-image: url(../assets/kachel.png);
+  margin-right: 1vw;
+}
+
+#detail-view-button {
+  background-image: url(../assets/detail.png);
+}
+
+#open-button {
+  background-image: url(../assets/expand.png);
+  background-size: cover;
+}
+
+.start-button {
+  width: 30%;
+}
+

@@ -52,7 +52,8 @@ export default {
             y: {
               beginAtZero: true,
             }
-          }
+          },
+          animations: false
         }
       });
 
@@ -75,7 +76,8 @@ export default {
             y: {
               beginAtZero: true,
             }
-          }
+          },
+          animations: false
         }
       });
     }
