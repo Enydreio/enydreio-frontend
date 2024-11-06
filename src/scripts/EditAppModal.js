@@ -1,23 +1,27 @@
 export default {
-    name: 'EditAppModal',
-    props: {
-      app: {
-        type: Object,
-        required: true,
-      },
-      isVisible: {
-        type: Boolean,
-        default: false,
-      },
+  name: 'EditAppModal',
+  props: {
+    app: {
+      type: Object,
+      required: true,
     },
-    methods: {
-      close() {
-        this.$emit('close');
-      },
-      saveChanges() {
-        this.$emit('save', this.app);
-        this.close();
-      },
+    isVisible: {
+      type: Boolean,
+      default: false,
     },
-  };
-  
+  },
+  data() {
+    return {
+      form: { ...this.app }, // Kopiere die App-Daten in form
+    };
+  },
+  methods: {
+    close() {
+      this.$emit('close');
+    },
+    saveChanges() {
+      this.$emit('update-app', this.form);
+      this.close();
+    },
+  },
+};

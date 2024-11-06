@@ -14,30 +14,6 @@
       </header>
 
       <section class="apps-list">
-        <!-- Add Application Button -->
-        <button @click="showAddForm = !showAddForm">{{ showAddForm ? 'Close' : 'Add Application' }}</button>
-
-        <!-- Add Application Form -->
-        <form v-if="showAddForm" @submit.prevent="createApplication">
-          <div>
-            <label for="name">Name:</label>
-            <input type="text" v-model="form.name" required />
-          </div>
-          <div>
-            <label for="description">Beschreibung:</label>
-            <textarea v-model="form.description" required></textarea>
-          </div>
-          <div>
-            <label for="url">URL:</label>
-            <input type="url" v-model="form.url" required />
-          </div>
-          <div>
-            <label for="logo">Logo-URL:</label>
-            <input type="url" v-model="form.logo" />
-          </div>
-          <button type="submit">Hinzufügen</button>
-        </form>
-
         <!-- Grid View / Table View -->
         <div v-if="isGridView" class="grid-view">
           <div v-for="app in filteredApps" :key="app.id" class="grid-item">
@@ -64,13 +40,24 @@
               <td>{{ app.description }}</td>
               <td>{{ app.url }}</td>
               <td>
-                <button class="view-button" @click="viewDetails(app)">View</button>
-                <button class="start-button" @click="openEditModal(app)">Edit</button>
+                <button id="view-button" class="crud-button" @click="viewDetails(app)">View</button>
+                <button id="edit-button" class="crud-button" @click="openEditModal(app)">Edit</button>
+                <button id="delete-button" class="crud-button" @click="deleteApp(app.ID)">Delete</button>
               </td>
             </tr>
           </tbody>
         </table>
+        <button id="create-button" class="crud-button" @click="openNewAppModal">{{ showAddForm ? 'Close' : 'Add Application' }}</button>
+
+
       </section>
+      <!-- Modal for Creating New App -->
+      <NewAppModal
+        v-if="isNewAppModalVisible"
+        :isVisible="isNewAppModalVisible"
+        @close="closeNewAppModal"
+        @create="createApplication"
+      />
 
       <!-- Modal for App Details -->
       <AppDetailsModal
@@ -86,6 +73,7 @@
         :app="selectedApp"
         :isVisible="isEditModalVisible"
         @close="closeEditModal"
+        @update-app="updateApps"
       />
     </main>
     </SidebarToggle>
@@ -93,5 +81,4 @@
 </template>
 
 <script src="../scripts/AppsPage.js"></script>
-
 <style src="../styles/AppsPage.css" scoped></style>

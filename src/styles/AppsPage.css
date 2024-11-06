@@ -17,10 +17,6 @@
   border: 1px solid #ccc;
 }
 
-#view-button {
-  width: 12%;
-}
-
 .apps-list {
   overflow-y: auto;
   background-color: white;
@@ -79,7 +75,7 @@ tr:hover {
   color: red;
 }
 
-.view-button, .start-button {
+.crud-button {
   padding: 5px 10px;
   margin-right: 5px;
   border: none;
@@ -89,7 +85,7 @@ tr:hover {
   cursor: pointer;
 }
 
-.view-button:hover, .start-button:hover {
+.crud-button:hover {
   background-color: #2c2c46;
 }
 
@@ -136,7 +132,11 @@ tr:hover {
   background-size: cover;
 }
 
-.start-button {
+.crud-button {
   width: 30%;
 }
 
+#create-button {
+  margin-top: 1%;
+  width: 10%;
+}

@@ -1,5 +1,6 @@
 import AppDetailsModal from '@/components/AppDetailsModal.vue';
 import AppEditModal from '@/components/EditAppModal.vue';
+import NewAppModal from '@/components/NewAppModal.vue';
 import SidebarToggle from '@/components/SidebarToggle.vue';
 import axios from 'axios';
 
@@ -8,6 +9,7 @@ export default {
   components: {
     AppDetailsModal,
     AppEditModal,
+    NewAppModal,
     SidebarToggle,
   },
   data() {
@@ -21,8 +23,8 @@ export default {
       selectedApp: null,
       isModalVisible: false,
       isEditModalVisible: false,
-      showAddForm: false, // State for showing the add application form
-      form: { // Data for the add application form
+      isNewAppModalVisible: false,
+      form: {
         name: '',
         description: '',
         url: '',
@@ -37,66 +39,115 @@ export default {
   methods: {
     async fetchApplications() {
       try {
-        const response = await axios.get('http://localhost:8080/api/list-applications');
+        const response = await axios.get('http://localhost:8081/api/list-applications');
         this.apps = response.data;
       } catch (error) {
         console.error("Error fetching applications:", error);
         this.apiError = "Failed to load applications.";
       }
     },
-    async createApplication() {
+
+    async createApplication(newAppData) {
       try {
-        const response = await axios.post(
-          'http://localhost:8080/api/create-application', 
-          this.form, 
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',  
-            }
-          }
-        );
+        const response = await axios.post('http://localhost:8081/api/create-application', newAppData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
         if (response.status === 200) {
-          this.apps.push(response.data); // Die neue App zur Liste hinzufügen
-          this.showAddForm = false;
-          this.resetForm();
+          this.apps.push(response.data);
+          await this.fetchApplications();
+          this.closeNewAppModal();
+          console.log("App erfolgreich hinzugefügt");
         }
       } catch (error) {
         console.error("Error creating application:", error);
         this.apiError = "Failed to create application.";
       }
     },
-    resetForm() {
-      this.form = {
-        name: '',
-        description: '',
-        url: '',
-        logo: ''
-      };
+
+    async updateApps(updatedAppData) {
+      try {
+        const response = await axios.put('http://localhost:8081/api/edit-application', updatedAppData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
+        if (response.status === 200) {
+          const index = this.apps.findIndex(app => app.id === updatedAppData.id);
+          if (index !== -1) {
+            this.apps.splice(index, 1, response.data);
+          }
+          this.closeEditModal();
+          console.log("App erfolgreich aktualisiert");
+        }
+      } catch (error) {
+        console.error("Error updating application:", error);
+        this.apiError = "Failed to update application.";
+      }
     },
+
+    async deleteApp(appId) {
+      console.log(appId);
+      try {
+        // DELETE-Request an die API senden, um die App zu löschen
+        const response = await axios.delete(`http://localhost:8081/api/delete-application?id=${appId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        if (response.status === 200) {
+          // Die App nach erfolgreichem Löschen aus der Liste entfernen
+          this.apps = this.apps.filter(app => app.id !== appId);
+          console.log("App erfolgreich gelöscht");
+        }
+      } catch (error) {
+        console.error("Error deleting application:", error);
+        this.apiError = "Failed to delete application.";
+      }
+      await this.fetchApplications();
+    },
+
     handleSidebarToggle(newState) {
       this.isSidebarVisible = newState;
     },
+
     viewDetails(app) {
       this.selectedApp = app;
       this.isModalVisible = true;
     },
+
     closeModal() {
       this.selectedApp = null;
       this.isModalVisible = false;
     },
+
     openEditModal(app) {
       this.selectedApp = app;
       this.isEditModalVisible = true;
     },
+
     closeEditModal() {
       this.selectedApp = null;
       this.isEditModalVisible = false;
     },
+    
+    openNewAppModal() {
+      this.isNewAppModalVisible = true;
+    },
+
+    closeNewAppModal() {
+      this.isNewAppModalVisible = false;
+    },
+
     sortBy(field) {
       this.sortField = this.sortField === field ? '' : field;
       this.sortOrder = this.sortField ? (this.sortOrder === '↑' ? '↓' : '↑') : '↑';
     },
+
     toggleView() {
       this.isGridView = !this.isGridView;
     },
@@ -104,7 +155,9 @@ export default {
   computed: {
     filteredApps() {
       let filtered = (Array.isArray(this.apps) ? this.apps : []).filter(app => {
-        return app.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+        if(app.name) {
+          return app.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+        }
       });
 
       if (this.sortField) {
