@@ -4,8 +4,11 @@
       <main class="main-content">
         <header class="dashboard-header">
           <h1>Dashboard</h1>
-          <input type="text" placeholder="Search..." />
-        </header>
+          <div>
+            <input type="text" placeholder="Search..." />
+            <button @click="logout" class="logout-button">Logout</button>
+          </div>
+         </header>
 
         <section class="dashboard-overview">
           <div class="card">

@@ -3,6 +3,7 @@ import AppEditModal from '@/components/EditAppModal.vue';
 import NewAppModal from '@/components/NewAppModal.vue';
 import SidebarToggle from '@/components/SidebarToggle.vue';
 import axios from 'axios';
+import { inject } from 'vue';
 
 export default {
   name: 'AppsPage',
@@ -11,6 +12,21 @@ export default {
     AppEditModal,
     NewAppModal,
     SidebarToggle,
+  },
+  setup() {
+    // Zugriff auf die Keycloak-Instanz
+    const keycloak = inject('keycloak');
+
+    // Logout-Funktion
+    const logout = () => {
+      if (keycloak) {
+        keycloak.logout(); // Loggt den Benutzer aus und leitet ihn um
+      } else {
+        console.error('Keycloak instance not found.');
+      }
+    };
+
+    return { logout };
   },
   data() {
     return {
@@ -39,7 +55,8 @@ export default {
   methods: {
     async fetchApplications() {
       try {
-        const response = await axios.get('http://localhost:8081/api/list-applications');
+        const backendUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/list-applications`;
+        const response = await axios.get(backendUrl);
         this.apps = response.data;
       } catch (error) {
         console.error("Error fetching applications:", error);
@@ -49,7 +66,8 @@ export default {
 
     async createApplication(newAppData) {
       try {
-        const response = await axios.post('http://localhost:8081/api/create-application', newAppData, {
+        const backendUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/create-application`;
+        const response = await axios.post(backendUrl, newAppData, {
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -69,7 +87,8 @@ export default {
 
     async updateApps(updatedAppData) {
       try {
-        const response = await axios.put('http://localhost:8081/api/edit-application', updatedAppData, {
+        const backendUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/edit-application`;
+        const response = await axios.put(backendUrl, updatedAppData, {
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -92,8 +111,8 @@ export default {
     async deleteApp(appId) {
       console.log(appId);
       try {
-        // DELETE-Request an die API senden, um die App zu löschen
-        const response = await axios.delete(`http://localhost:8081/api/delete-application?id=${appId}`, {
+        const backendUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/delete-application?id=${appId}`;
+        const response = await axios.delete(backendUrl, {
           headers: {
             'Content-Type': 'application/json',
           },

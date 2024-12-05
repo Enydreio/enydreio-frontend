@@ -14,7 +14,7 @@
         <h3>John Doe</h3>
       </div>
       <nav class="nav-links">
-        <router-link to="/apps" class="nav-link">Apps</router-link>
+        <router-link to="/" class="nav-link">Apps</router-link>
         <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
         <router-link to="/settings" class="nav-link">Settings</router-link>
       </nav>

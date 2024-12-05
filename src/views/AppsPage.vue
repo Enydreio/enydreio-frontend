@@ -5,7 +5,10 @@
       <header class="apps-header">
         <div id="apps-header-box">
           <h1>Your Apps</h1>
-          <input type="text" placeholder="Search..." v-model="searchQuery"/>
+          <div>
+            <input type="text" placeholder="Search by name" v-model="searchQuery"/>
+            <button @click="logout" class="logout-button">Logout</button>
+          </div>
         </div>
         <div id="button-panel">
           <button id="grid-view-button" @click="toggleView" :disabled="isGridView"></button>
@@ -42,7 +45,7 @@
               <td>
                 <button id="view-button" class="crud-button" @click="viewDetails(app)">View</button>
                 <button id="edit-button" class="crud-button" @click="openEditModal(app)">Edit</button>
-                <button id="delete-button" class="crud-button" @click="deleteApp(app.ID)">Delete</button>
+                <button id="delete-button" class="crud-button" @click="deleteApp(app.ID )">Delete</button>
               </td>
             </tr>
           </tbody>

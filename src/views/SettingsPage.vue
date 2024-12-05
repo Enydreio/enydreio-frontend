@@ -21,7 +21,7 @@
 
 <script src="../scripts/SettingsPage.js"></script>
 <style scoped>
-@import '../styles/SettingsPage.css';
-@import '../styles/App.css';
-@import '../styles/SidebarToggle.css'; /* Importiere SidebarToggle CSS */
+  @import '../styles/SettingsPage.css';
+  @import '../styles/App.css';
+  @import '../styles/SidebarToggle.css'; /* Importiere SidebarToggle CSS */
 </style>
