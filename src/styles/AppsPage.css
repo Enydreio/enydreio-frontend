@@ -94,7 +94,7 @@ tr:hover {
   background-color: #2c2c46;
 }
 
-#grid-view-button, #detail-view-button, #open-button {
+#grid-view-button, #detail-view-button, .open-button {
   width: 3vh; /* Breite des Bildes */
   height: 3vh; /* Höhe des Bildes */
   background-size: cover;
@@ -103,24 +103,30 @@ tr:hover {
   background-color: #ffffff;
 }
 
-#open-button {
+.open-button {
   padding: 1%;
   background-color: #f9f9f9;
+  background-image: url(../assets/expand.png);
+  background-size: cover;
 }
 
-#open-button-box {
+.open-button-box {
   display: flex;
   align-items: end;
   justify-content: end;
   width: 100%;
 }
 
-#application-image {
+.application-image {
+  text-align: center;
+  min-width: 50%;
   max-width: 100%;
-  min-width: 75%;
+  min-height: 50%;
+  max-height: 100%;
   height: 20vh;
-  background-image: url(../assets/application.png);
-  background-size: cover;
+  background-size: contain; 
+  background-position: center; 
+  background-repeat: no-repeat; 
 }
 
 #grid-view-button {
@@ -132,12 +138,21 @@ tr:hover {
   background-image: url(../assets/detail.png);
 }
 
-#open-button {
-  background-image: url(../assets/expand.png);
-  background-size: cover;
-}
-
 #create-button {
   margin-top: 1%;
   width: 10%;
+}
+
+.link {
+  width: 100%;
+  height: 100%;
+}
+
+.crud-buttons {
+  min-width: 13%;
+}
+
+.name {
+  font-size: large;
+  font-weight: bold;
 }

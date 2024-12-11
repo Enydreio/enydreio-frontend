@@ -20,9 +20,9 @@
         <!-- Grid View / Table View -->
         <div v-if="isGridView" class="grid-view">
           <div v-for="app in filteredApps" :key="app.id" class="grid-item">
-            <span id="name">{{ app.name }}</span>
-            <div id="application-image"><!--{{ app.logo }}--></div>
-            <div id="open-button-box"><button @click="viewDetails(app)" id="open-button"></button></div>
+            <span class="name">{{ app.name }}</span>
+            <a class="link" :href="app.url" target="_blank"><div class="application-image" :style="{backgroundImage: `url(${app.logo || require('@/assets/application.png')})`}"></div></a>
+            <div class="open-button-box"><button @click="viewDetails(app)" class="open-button"></button></div>
           </div>
         </div>
 
@@ -42,10 +42,10 @@
               <td>{{ app.name }}</td>
               <td>{{ app.description }}</td>
               <td>{{ app.url }}</td>
-              <td>
+              <td class="crud-buttons">
                 <button id="view-button" class="crud-button" @click="viewDetails(app)">View</button>
                 <button id="edit-button" class="crud-button" @click="openEditModal(app)">Edit</button>
-                <button id="delete-button" class="crud-button" @click="deleteApp(app.ID )">Delete</button>
+                <button id="delete-button" class="crud-button" @click="deleteApp(app.ID)">Delete</button>
               </td>
             </tr>
           </tbody>
