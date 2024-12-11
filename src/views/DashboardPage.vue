@@ -4,7 +4,7 @@
       <main class="main-content">
         <header class="dashboard-header">
           <h1>Dashboard</h1>
-          <div>
+          <div id="search-logout">
             <input type="text" placeholder="Search..." />
             <button @click="logout" class="logout-button">Logout</button>
           </div>

@@ -80,7 +80,7 @@ export default {
           console.log("App erfolgreich hinzugefügt");
         }
       } catch (error) {
-        console.error("Error creating application:", error);
+        console.error("Error creating application:", error);  
         this.apiError = "Failed to create application.";
       }
     },

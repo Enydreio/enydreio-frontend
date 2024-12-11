@@ -5,8 +5,8 @@
       <header class="apps-header">
         <div id="apps-header-box">
           <h1>Your Apps</h1>
-          <div>
-            <input type="text" placeholder="Search by name" v-model="searchQuery"/>
+          <div id="search-logout">
+            <input type="text" placeholder="Search..." v-model="searchQuery"/>
             <button @click="logout" class="logout-button">Logout</button>
           </div>
         </div>

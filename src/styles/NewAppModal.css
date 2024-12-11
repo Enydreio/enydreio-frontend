@@ -45,7 +45,7 @@
   .modal-body input,
   .modal-body textarea {
     width: 100%;
-    padding: 8px;
+    padding-top: 8px;
     border-radius: 5px;
     border: 1px solid #ccc;
   }
