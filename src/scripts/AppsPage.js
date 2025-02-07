@@ -4,13 +4,16 @@ import NewAppModal from '@/components/NewAppModal.vue';
 import SidebarToggle from '@/components/SidebarToggle.vue';
 import axios from 'axios';
 import { inject } from 'vue';
+import VueResize from 'vue-resize';
+import 'vue-resize/dist/vue-resize.css'; 
 
 export default {
   name: 'AppsPage',
   components: {
     AppDetailsModal,
     AppEditModal,
-    NewAppModal,
+    NewAppModal,    
+    VueResize,
     SidebarToggle,
   },
   setup() {
@@ -49,8 +52,16 @@ export default {
       apiError: null
     };
   },
+  created() {
+    console.log("Component created");
+  },
   mounted() {
-    this.fetchApplications();
+    try {
+      this.fetchApplications();
+      console.log("VueResizable registered:", VueResizable);
+    } catch (err) {
+      console.error("Error in mounted:", err);
+    }
   },
   methods: {
     async fetchApplications() {
@@ -58,6 +69,7 @@ export default {
         const backendUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/list-applications`;
         const response = await axios.get(backendUrl);
         this.apps = response.data;
+        console.log("applications fetched");
       } catch (error) {
         console.error("Error fetching applications:", error);
         this.apiError = "Failed to load applications.";
@@ -169,6 +181,18 @@ export default {
 
     toggleView() {
       this.isGridView = !this.isGridView;
+    },
+
+    handleResize(event, columnIndex) {
+      const newWidth = event.width; // Die neue Breite der Spalte
+      const table = this.$refs.table;
+      if (table) {
+        const ths = table.querySelectorAll("th");
+        if (ths[columnIndex]) {
+          ths[columnIndex].style.width = `${newWidth}px`;
+        }
+      }
+      console.log("Column resized to:", newWidth);
     },
   },
   computed: {

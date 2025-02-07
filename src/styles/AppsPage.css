@@ -156,3 +156,25 @@ tr:hover {
   font-size: large;
   font-weight: bold;
 }
+
+.resizable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: col-resize;
+  user-select: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  width: 100px; /* Initiale Breite der Spalten, wenn gewünscht */
+}

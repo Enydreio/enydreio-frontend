@@ -26,14 +26,34 @@
           </div>
         </div>
 
-        <table v-else>
+        <table v-else class="resizable-table" ref="table">
           <thead>
             <tr>
-              <th>Logo</th>
-              <th @click="sortBy('name')">App Name <span v-if="sortField === 'name'">{{ sortOrder }}</span></th>
-              <th @click="sortBy('description')">Description <span v-if="sortField === 'description'">{{ sortOrder }}</span></th>
-              <th @click="sortBy('url')">URL <span v-if="sortField === 'url'">{{ sortOrder }}</span></th>
-              <th>Actions</th>
+              <th>
+                <vue-resize @resize="handleResize($event, 0)" class="resizable-header">
+                  Logo
+                </vue-resize>
+              </th>
+              <th @click="sortBy('name')">
+                <vue-resize @resize="handleResize($event, 1)" class="resizable-header">
+                  App Name <span v-if="sortField === 'name'">{{ sortOrder }}</span>
+                </vue-resize>
+              </th>
+              <th @click="sortBy('description')">
+                <vue-resize @resize="handleResize($event, 2)" class="resizable-header">
+                  Description <span v-if="sortField === 'description'">{{ sortOrder }}</span>
+                </vue-resize>
+              </th>
+              <th @click="sortBy('url')">
+                <vue-resize @resize="handleResize($event, 3)" class="resizable-header">
+                  URL <span v-if="sortField === 'url'">{{ sortOrder }}</span>
+                </vue-resize>
+              </th>
+              <th>
+                <vue-resize @resize="handleResize($event, 4)" class="resizable-header">
+                  Actions
+                </vue-resize>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -50,10 +70,11 @@
             </tr>
           </tbody>
         </table>
+
+
         <button id="create-button" class="crud-button" @click="openNewAppModal">{{ showAddForm ? 'Close' : 'Add Application' }}</button>
-
-
       </section>
+
       <!-- Modal for Creating New App -->
       <NewAppModal
         v-if="isNewAppModalVisible"
