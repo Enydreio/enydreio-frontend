@@ -12,6 +12,14 @@
             <label for="email">E-Mail</label>
             <input type="email" id="email" v-model="email" required class="form-input">
           </div>
+          <div class="form-group">
+            <label for="firstName">Vorname</label>
+            <input type="text" id="firstName" v-model="firstName" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Nachname</label>
+            <input type="text" id="lastName" v-model="lastName" required class="form-input">
+          </div>
           <button type="submit" class="btn">Änderungen speichern</button>
         </form>
       </main>
