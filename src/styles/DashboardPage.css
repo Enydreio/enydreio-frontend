@@ -16,7 +16,6 @@
   flex-direction: row;
 }
 
-
 .dashboard-container {
   display: flex;
   height: 100vh;
@@ -75,15 +74,19 @@
 }
 
 .charts-container {
-  display: flex; /* Flexbox für die Anordnung der Charts */
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid; /* Flexbox für die Anordnung der Charts */
+  grid-template-columns: 50% 50%;
 }
 
-.charts-container canvas {
-  flex: 1; /* Lassen Sie die Canvas-Elemente gleichmäßig wachsen */
-  max-width: 50%; /* Maximale Breite, um Überlauf zu vermeiden */
-  max-height: 30vh; /* Höhe für die Charts festlegen */
+.charts-container .diagram {
+  flex: 1; /* Lässt die Diagramme gleichmäßig wachsen */
+  max-width: 100%; /* Verhindert, dass sie zu breit werden */
+  max-height: 20vh; /* Setzt eine maximale Höhe */
+}
+
+.charts-container iframe {
+  width: 100%; /* Stellt sicher, dass das iframe die gesamte Breite des Containers nutzt */
+  height: 100%; /* Damit das iframe den Container füllt */
 }
 
 .diagram {

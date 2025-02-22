@@ -10,9 +10,9 @@
         <section class="charts-section">
           <h2>Resource Usage Over Time</h2>
           <div class="charts-container">
-            <canvas class="diagram left-diagram" ref="resourceUsageChart"></canvas>
-            <canvas class="diagram right-diagram" ref="costChart"></canvas>
-          </div>        
+            <div class="diagram left-diagram"><iframe src="http://10.10.0.1:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=1&__feature.dashboardSceneSolo" frameborder="0"></iframe></div>
+            <div class="diagram right-diagram"><iframe src="http://10.10.0.1:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=2&__feature.dashboardSceneSolo" frameborder="0"></iframe></div>
+          </div>
         </section>
         <!-- Add any other details you'd like to display -->
       </div>

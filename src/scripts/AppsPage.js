@@ -117,6 +117,10 @@ export default {
     },
 
     async deleteApp(appId) {
+      if (!confirm("Are you sure you want to delete this app?")) {
+        return; 
+      }
+      
       console.log(appId);
       try {
         const backendUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/delete-application?id=${appId}`;

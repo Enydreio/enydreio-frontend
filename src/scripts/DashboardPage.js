@@ -1,4 +1,3 @@
-import { Chart, registerables } from 'chart.js';
 import SidebarToggle from '../components/SidebarToggle.vue';
 
 export default {
@@ -20,66 +19,9 @@ export default {
       isSidebarVisible: true, // Zustand der Sidebar
     };
   },
-  mounted() {
-    this.renderDashboardCharts();
-  },
   methods: {
     handleSidebarToggle(newState) {
       this.isSidebarVisible = newState; // Sidebar Sichtbarkeit aktualisieren
-    },
-    renderDashboardCharts() {
-      Chart.register(...registerables);
-      const resourceCtx = this.$refs.resourceUsageChart.getContext('2d');
-      const costCtx = this.$refs.costChart.getContext('2d');
-
-      new Chart(resourceCtx, {
-        type: 'line',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-          datasets: [{
-            label: 'Resource Usage (%)',
-            data: this.resourceUsageData,
-            borderColor: '#6a11cb',
-            fill: false,
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            x: {
-              beginAtZero: true,
-            },
-            y: {
-              beginAtZero: true,
-            }
-          },
-          animations: false
-        }
-      });
-
-      new Chart(costCtx, {
-        type: 'bar',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-          datasets: [{
-            label: 'Costs ($)',
-            data: this.costData,
-            backgroundColor: '#6a11cb',
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            x: {
-              beginAtZero: true,
-            },
-            y: {
-              beginAtZero: true,
-            }
-          },
-          animations: false
-        }
-      });
     }
   }
 };
