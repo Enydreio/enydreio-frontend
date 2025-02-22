@@ -12,8 +12,6 @@
           <div class="charts-container">
             <canvas class="diagram left-diagram" ref="resourceUsageChart"></canvas>
             <canvas class="diagram right-diagram" ref="costChart"></canvas>
-            <canvas class="diagram left-diagram" ref="extraChart"></canvas>
-            <canvas class="diagram right-diagram" ref="extraChart2"></canvas>
           </div>        
         </section>
         <!-- Add any other details you'd like to display -->

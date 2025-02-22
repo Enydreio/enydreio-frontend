@@ -30,8 +30,8 @@
         </section>
 
         <section class="charts-section">
-<!--          <h2>Resource Usage Over Time</h2>
-          <div class="charts-container">
+        <h2>Resource Usage Over Time</h2>
+          <!--   <div class="charts-container">
             <canvas class="diagram left-diagram" ref="resourceUsageChart"></canvas>
             <canvas class="diagram right-diagram" ref="costChart"></canvas>
             <canvas class="diagram left-diagram" ref="extraChart"></canvas>
