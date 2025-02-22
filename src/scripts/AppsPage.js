@@ -4,8 +4,6 @@ import NewAppModal from '@/components/NewAppModal.vue';
 import SidebarToggle from '@/components/SidebarToggle.vue';
 import axios from 'axios';
 import { inject } from 'vue';
-import VueResize from 'vue-resize';
-import 'vue-resize/dist/vue-resize.css'; 
 
 export default {
   name: 'AppsPage',
@@ -13,7 +11,6 @@ export default {
     AppDetailsModal,
     AppEditModal,
     NewAppModal,    
-    VueResize,
     SidebarToggle,
   },
   setup() {
@@ -58,7 +55,6 @@ export default {
   mounted() {
     try {
       this.fetchApplications();
-      console.log("VueResizable registered:", VueResizable);
     } catch (err) {
       console.error("Error in mounted:", err);
     }
@@ -181,19 +177,7 @@ export default {
 
     toggleView() {
       this.isGridView = !this.isGridView;
-    },
-
-    handleResize(event, columnIndex) {
-      const newWidth = event.width; // Die neue Breite der Spalte
-      const table = this.$refs.table;
-      if (table) {
-        const ths = table.querySelectorAll("th");
-        if (ths[columnIndex]) {
-          ths[columnIndex].style.width = `${newWidth}px`;
-        }
-      }
-      console.log("Column resized to:", newWidth);
-    },
+    }
   },
   computed: {
     filteredApps() {

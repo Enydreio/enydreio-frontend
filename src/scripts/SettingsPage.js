@@ -1,5 +1,4 @@
-import SidebarToggle from '@/components/SidebarToggle.vue';
-import keycloak from '@/keycloak'; // Stelle sicher, dass Keycloak richtig importiert ist
+import SidebarToggle from '@/components/SidebarToggle.vue'; // importiere die SidebarToggle
 
 export default {
   name: 'SettingsPage',
@@ -9,40 +8,16 @@ export default {
   data() {
     return {
       username: '',
-      isSidebarVisible: true,
+      email: '',
+      isSidebarVisible: true, // Standardmäßig sichtbar
     };
-  },
-  async mounted() {
-    if (keycloak.authenticated) {
-      const profile = await keycloak.loadUserProfile();
-      this.username = profile.username || '';
-    }
   },
   methods: {
     handleSidebarToggle(newState) {
-      this.isSidebarVisible = newState;
+      this.isSidebarVisible = newState; // Wechselt die Sichtbarkeit der Sidebar
     },
-    async updateSettings() {
-      try {
-        const response = await fetch(`${keycloak.authServerUrl}/realms/${keycloak.realm}/account`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${keycloak.token}`,
-          },
-          body: JSON.stringify({
-            username: this.username
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Fehler beim Aktualisieren des Profils');
-        }
-        alert('Profil erfolgreich aktualisiert!');
-      } catch (error) {
-        console.error(error);
-        alert('Update fehlgeschlagen.');
-      }
-    },
-  },
+    updateSettings() {
+      console.log(`Benutzername: ${this.username}, E-Mail: ${this.email}`);
+    }
+  }
 };
