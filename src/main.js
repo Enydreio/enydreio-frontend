@@ -3,11 +3,12 @@ import App from './App.vue';
 import router from './router';
 import Keycloak from 'keycloak-js';
 import axios from 'axios';
-
-let initOptions = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/keycloak-init-options`)
-
-let keycloak = new Keycloak(await initOptions);
-
+let initOptions = null;
+let keycloak = null;
+(async() => {
+  initOptions = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/keycloak-init-options`)
+  keycloak = new Keycloak (await initOptions)
+})();
 keycloak.init({ onLoad: await initOptions.onLoad }).then((auth) => {
   if (!auth) {
     window.location.reload();
