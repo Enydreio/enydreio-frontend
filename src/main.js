@@ -2,13 +2,9 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import Keycloak from 'keycloak-js';
+import axios from 'axios';
 
-let initOptions = {
-  url: 'http://127.0.0.1:8085',
-  realm: 'test',
-  clientId: 'vue-app',
-  onLoad: 'login-required',
-};
+let initOptions = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/keycloak-init-options`)
 
 let keycloak = new Keycloak(initOptions);
 
