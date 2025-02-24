@@ -6,9 +6,9 @@ import axios from 'axios';
 
 let initOptions = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/keycloak-init-options`)
 
-let keycloak = new Keycloak(initOptions);
+let keycloak = new Keycloak(await initOptions);
 
-keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
+keycloak.init({ onLoad: await initOptions.onLoad }).then((auth) => {
   if (!auth) {
     window.location.reload();
   } else {
