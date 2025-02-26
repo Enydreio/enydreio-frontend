@@ -2,34 +2,40 @@
   <div :class="['sidebar-container', { 'sidebar-collapsed': !isSidebarVisible }]">
     <SidebarToggle @toggle="handleSidebarToggle">
       <main class="main-content">
-        <h2>Benutzereinstellungen</h2>
-        <form @submit.prevent="updateSettings" class="settings-form">
-          <div class="form-group">
-            <label for="username">Benutzername</label>
-            <input type="text" id="username" v-model="username" required class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="email">E-Mail</label>
-            <input type="email" id="email" v-model="email" required class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="firstName">Vorname</label>
-            <input type="text" id="firstName" v-model="firstName" required class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="lastName">Nachname</label>
-            <input type="text" id="lastName" v-model="lastName" required class="form-input">
-          </div>
-          <button type="submit" class="btn">Änderungen speichern</button>
-        </form>
+        <div v-if="isAdmin" class="settings-container">
+          <h2>Benutzerverwaltung</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Rolle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="user in users" :key="user.id">
+                <td>{{ user.username }}</td>
+                <td>{{ user.id }}</td>
+                <td>
+                  <select v-model="user.role" @change="updateUserRole(user)">
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p v-else>Kein Admin</p>
       </main>
     </SidebarToggle>
   </div>
 </template>
 
 <script src="../scripts/SettingsPage.js"></script>
+
 <style scoped>
   @import '../styles/SettingsPage.css';
   @import '../styles/App.css';
-  @import '../styles/SidebarToggle.css'; /* Importiere SidebarToggle CSS */
+  @import '../styles/SidebarToggle.css';
 </style>
