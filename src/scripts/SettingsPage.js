@@ -36,7 +36,8 @@ export default {
         }
         const token = this.keycloak.token;
         const response = await axios.get('http://localhost:8085/realms/test/protocol/openid-connect/userinfo', {
-          headers: {
+          headers: 
+          {
             'Authorization': `Bearer ${token}`
           }
         });
@@ -53,47 +54,150 @@ export default {
       try {
         const token = this.keycloak.token;
         const response = await axios.get('http://localhost:8085/admin/realms/test/users', {
+          headers: 
+          {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        this.users = await Promise.all(
+          response.data.map(async user => {
+            const roles = await this.getUserRoles(user.id); // Assuming this returns an array of roles
+            console.log(roles[0].name)
+            return {
+              id: user.id,
+              username: user.username,
+              role: roles.length > 0 ? roles[0].name : 'No Role' // Adjust based on the expected role structure
+            };
+          })
+        );
+        
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Benutzer:', error);
+      }
+    },
+
+    async getClients() {
+      try {
+        const token = this.keycloak.token;
+        const response = await axios.get('http://localhost:8085/admin/realms/test/clients', {
+          headers: 
+          {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        return response.data
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Benutzer:', error);
+      }
+    },
+
+    getClientId(clients, clientId) {
+      for(const client of clients) {
+        if(client.clientId === clientId) {
+          return client.id
+        }
+      }
+      return null
+    },
+
+    async getRoleId(clientId) {
+      try {
+        const token = this.keycloak.token;
+        const response = await axios.get(`http://localhost:8085/admin/realms/test/clients/${clientId}/roles`, {
+          headers: 
+          {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        return response.data
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Rollen:', error);
+      }
+    },
+
+    async getUserRoles(userId) {
+      const token = this.keycloak.token;
+      const clients = await this.getClients()
+      const clientId = this.getClientId(await clients, 'vue-app')
+
+      const response = await axios.get(
+        `http://localhost:8085/admin/realms/test/users/${userId}/role-mappings/clients/${clientId}`,
+        {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         });
 
-        this.users = response.data.map(user => {
-          //this.getUserRoles(user.id);
-        
-          return {
-            id: user.id,
-            username: user.username
-          };
-        });
-      } catch (error) {
-        console.error('Fehler beim Abrufen der Benutzer:', error);
-      }
+      const roleMappings = await response.data;
+      console.log(roleMappings)
+      return roleMappings;
     },
-    async getUserRoles(userId) {
+
+    async getAvailableUserRoles(userId) {
       const token = this.keycloak.token;
-      const response = await axios.get(`http://localhost:8085/admin/realms/test/clients/${userId}/roles`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
+      const clients = await this.getClients()
+      const clientId = this.getClientId(await clients, 'vue-app')
 
-      //const clientRoles = this.keycloak.tokenParsed.resource_access?.[this.keycloak.clientId]?.roles || [];
-      console.log(response)
+      const response = await axios.get(
+        `http://localhost:8085/admin/realms/test/users/${userId}/role-mappings/clients/${clientId}/available`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
 
-      if (response.ok) {
-        const roles = await response.json(); // Parse the response to get the roles
-        return roles;
-      } else {
-        throw new Error(`Failed to fetch roles for user ${userId}: ${response.statusText}`);
-      }
+      const roleMappings = await response.data;
+      return roleMappings;
     },
 
     async updateUserRole(user) {
+      const token = this.keycloak.token;
+      const availableRoles = await this.getAvailableUserRoles(user.id);
+      const roles = await this.getUserRoles(user.id);
+      const clients = await this.getClients()
+      const clientId = this.getClientId(await clients, 'vue-app')
+      console.log(roles)
+      console.log(roles[0].id)
+      console.log(roles[0].name)
+
       try {
-        await axios.put(`http://localhost:8085/auth/admin/realms/test/users/${user.id}/role`, { role: user.role });
+        await axios.delete(`http://localhost:8085/admin/realms/test/users/${user.id}/role-mappings/clients/${clientId}`,
+          {
+            headers: 
+            {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            data: 
+            [  
+              { 
+                id: roles[0].id,
+                name: roles[0].name
+              }
+            ]
+          }
+        );
+        console.log("Role removed successfully!");
+
+        await axios.post(`http://localhost:8085/admin/realms/test/users/${user.id}/role-mappings/clients/${clientId}`,
+          [{ 
+            id: availableRoles[0].id,
+            name: availableRoles[0].name
+          }],
+          { 
+            headers: 
+            {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+        });
+      
         alert('Rolle erfolgreich geändert');
       } catch (error) {
         console.error('Fehler beim Ändern der Rolle:', error);
