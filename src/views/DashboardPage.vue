@@ -32,15 +32,11 @@
         <section class="charts-section">
           <h2>Resource Usage Over Time</h2>
           <div class="charts-container">
-            <canvas class="diagram left-diagram" ref="resourceUsageChart"></canvas>
-            <canvas class="diagram right-diagram" ref="costChart"></canvas>
-            <canvas class="diagram left-diagram" ref="extraChart"></canvas>
-            <canvas class="diagram right-diagram" ref="extraChart2"></canvas>
-          </div>-->
-          <iframe src="http://host.docker.internal:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=1&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
-          <iframe src="http://host.docker.internal:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=2&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
-          <iframe src="http://host.docker.internal:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=3&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
-          <iframe src="http://host.docker.internal:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=4&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
+            <div class="diagram left-diagram" ref="resourceUsageChart"><iframe src="http://host.docker.internal:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=1&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe></div>
+            <div class="diagram right-diagram" ref="costChart"><iframe src="http://host.docker.internal:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=2&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe></div>
+            <div class="diagram left-diagram" ref="extraChart"><iframe src="http://host.docker.internal:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=3&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe></div>
+            <div class="diagram right-diagram" ref="extraChart2"><iframe src="http://host.docker.internal:10000/d-solo/ce5zfmp0am2gwe/new-dashboard?orgId=1&timezone=browser&panelId=4&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe></div>
+          </div>
         </section>
 
         <section class="activity-section">
