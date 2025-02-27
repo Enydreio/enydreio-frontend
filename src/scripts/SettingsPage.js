@@ -68,6 +68,9 @@ export default {
             return {
               id: user.id,
               username: user.username,
+              firstname: user.firstName,
+              lastname: user.lastName,
+              email: user.email,
               role: roles.length > 0 ? roles[0].name : 'No Role' // Adjust based on the expected role structure
             };
           })
@@ -124,8 +127,7 @@ export default {
       const clients = await this.getClients()
       const clientId = this.getClientId(await clients, 'vue-app')
 
-      const response = await axios.get(
-        `http://localhost:8085/admin/realms/test/users/${userId}/role-mappings/clients/${clientId}`,
+      const response = await axios.get(`http://localhost:8085/admin/realms/test/users/${userId}/role-mappings/clients/${clientId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -143,8 +145,7 @@ export default {
       const clients = await this.getClients()
       const clientId = this.getClientId(await clients, 'vue-app')
 
-      const response = await axios.get(
-        `http://localhost:8085/admin/realms/test/users/${userId}/role-mappings/clients/${clientId}/available`,
+      const response = await axios.get(`http://localhost:8085/admin/realms/test/users/${userId}/role-mappings/clients/${clientId}/available`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,

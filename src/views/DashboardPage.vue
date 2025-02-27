@@ -5,8 +5,7 @@
         <header class="dashboard-header">
           <h1>Dashboard</h1>
           <div id="search-logout">
-            <input type="text" placeholder="Search..." />
-            <button @click="logout" class="logout-button">Logout</button>
+            <button @click="logout" id="dashboard-logout-button">Logout</button>
           </div>
          </header>
 

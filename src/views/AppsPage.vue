@@ -7,7 +7,7 @@
           <h1>Your Apps</h1>
           <div id="search-logout">
             <input type="text" placeholder="Search..." v-model="searchQuery"/>
-            <button @click="logout" class="logout-button">Logout</button>
+            <button @click="logout" id="logout-button">Logout</button>
           </div>
         </div>
         <div id="button-panel">
