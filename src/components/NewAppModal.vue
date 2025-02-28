@@ -18,6 +18,10 @@
             <input type="url" v-model="form.url" required />
           </label>
           <label>
+            <span>Category</span>
+            <input type="url" v-model="form.category" />
+          </label>
+          <label>
             <span>Logo-URL:</span>
             <input type="url" v-model="form.logo" />
           </label>

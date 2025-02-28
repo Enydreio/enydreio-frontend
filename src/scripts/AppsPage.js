@@ -3,7 +3,7 @@ import AppEditModal from '@/components/EditAppModal.vue';
 import NewAppModal from '@/components/NewAppModal.vue';
 import SidebarToggle from '@/components/SidebarToggle.vue';
 import axios from 'axios';
-import { inject } from 'vue';
+import { inject/*, ref*/ } from 'vue';
 
 export default {
   name: 'AppsPage',
@@ -16,6 +16,7 @@ export default {
   setup() {
     // Zugriff auf die Keycloak-Instanz
     const keycloak = inject('keycloak');
+    //const checked = ref(false)
 
     // Logout-Funktion
     const logout = () => {
@@ -35,6 +36,7 @@ export default {
       sortOrder: '↑',
       isSidebarVisible: true,
       isGridView: true,
+      isCategoryView: false,
       apps: [], // Initially empty, to be filled with data from the API
       selectedApp: null,
       isModalVisible: false,
@@ -44,7 +46,8 @@ export default {
         name: '',
         description: '',
         url: '',
-        logo: ''
+        logo: '',
+        category: ''
       },
       apiError: null
     };

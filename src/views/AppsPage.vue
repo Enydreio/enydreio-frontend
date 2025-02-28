@@ -26,31 +26,41 @@
           </div>
         </div>
 
-        <table v-else>
-          <thead>
-            <tr>
-              <th>Logo</th>
-              <th @click="sortBy('name')">App Name <span v-if="sortField === 'name'">{{ sortOrder }}</span></th>
-              <th @click="sortBy('description')">Description <span v-if="sortField === 'description'">{{ sortOrder }}</span></th>
-              <th @click="sortBy('url')">URL <span v-if="sortField === 'url'">{{ sortOrder }}</span></th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="app in filteredApps" :key="app.id">
-              <td>{{ app.logo }}</td>
-              <td>{{ app.name }}</td>
-              <td>{{ app.description }}</td>
-              <td>{{ app.url }}</td>
-              <td class="crud-buttons">
-                <button id="view-button" class="crud-button" @click="viewDetails(app)">View</button>
-                <button id="edit-button" class="crud-button" @click="openEditModal(app)">Edit</button>
-                <button id="delete-button" class="crud-button" @click="deleteApp(app.ID)">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div v-else>
+            <div v-if="!isCategoryView">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th @click="sortBy('name')">App Name <span v-if="sortField === 'name'">{{ sortOrder }}</span></th>
+                    <th @click="sortBy('description')">Description <span v-if="sortField === 'description'">{{ sortOrder }}</span></th>
+                    <th @click="sortBy('url')">URL <span v-if="sortField === 'url'">{{ sortOrder }}</span></th>
+                    <ht>Logo</ht>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="app in filteredApps" :key="app.id">
+                    <td>{{ app.category }}</td>
+                    <td>{{ app.name }}</td>
+                    <td>{{ app.description }}</td>
+                    <td>{{ app.url }}</td>
+                    <td>{{ app.logo }}</td>
+                    <td class="crud-buttons">
+                      <button id="view-button" class="crud-button" @click="viewDetails(app)">View</button>
+                      <button id="edit-button" class="crud-button" @click="openEditModal(app)">Edit</button>
+                      <button id="delete-button" class="crud-button" @click="deleteApp(app.ID)">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
+          <div v-else>
+            
+          </div>
+        </div>
+        <ToggleButton v-model="checked" onIcon="pi pi-check" offIcon="pi pi-times" :invalid="!checked" class="crud-button" aria-label="Confirmation" />
         <button id="create-button" class="crud-button" @click="openNewAppModal">{{ showAddForm ? 'Close' : 'Add Application' }}</button>
       </section>
 

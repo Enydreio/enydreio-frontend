@@ -13,6 +13,7 @@ export default {
           description: '',
           url: '',
           logo: '',
+          category: '',
         },
       };
     },
@@ -31,6 +32,7 @@ export default {
           description: '',
           url: '',
           logo: '',
+          category: '',
         };
       },
     },

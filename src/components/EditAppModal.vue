@@ -11,7 +11,7 @@
         </label>
         <label>
           <span>Beschreibung:</span>
-          <textarea v-model="form.description" required></textarea>
+          <input type="text" v-model="form.description" required/>
         </label>
         <label>
           <span>URL:</span>
@@ -20,6 +20,10 @@
         <label>
           <span>Logo-URL:</span>
           <input type="url" v-model="form.logo" />
+        </label>
+        <label>
+          <span>Category</span>
+          <input type="url" v-model="form.category" />
         </label>
       </div>
       <footer class="modal-footer">
