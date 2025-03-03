@@ -63,8 +63,8 @@
                     <td><img :src="app.logo || require('@/assets/application.png')" alt="App Logo" width="50" /></td>
                     <td class="crud-buttons">
                       <button class="crud-button" @click="viewDetails(app)">View</button>
-                      <button class="crud-button" @click="openEditModal(app)">Edit</button>
-                      <button class="crud-button" @click="deleteApp(app.id)">Delete</button>
+                      <button v-if="isAdmin" class="crud-button" @click="openEditModal(app)">Edit</button>
+                      <button v-if="isAdmin" class="crud-button" @click="deleteApp(app.id)">Delete</button>
                     </td>
                   </tr>
                 </tbody>
@@ -93,8 +93,8 @@
                   <td><img :src="app.logo || require('@/assets/application.png')" alt="App Logo" width="50" /></td>
                   <td class="crud-buttons">
                     <button id="view-button" class="crud-button" @click="viewDetails(app)">View</button>
-                    <button id="edit-button" class="crud-button" @click="openEditModal(app)">Edit</button>
-                    <button id="delete-button" class="crud-button" @click="deleteApp(app.ID)">Delete</button>
+                    <button v-if="isAdmin" id="edit-button" class="crud-button" @click="openEditModal(app)">Edit</button>
+                    <button v-if="isAdmin" id="delete-button" class="crud-button" @click="deleteApp(app.ID)">Delete</button>
                   </td>
                 </tr>
               </tbody>

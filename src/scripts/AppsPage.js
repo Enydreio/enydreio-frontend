@@ -27,7 +27,7 @@ export default {
       }
     };
 
-    return { logout };
+    return { logout, keycloak };
   },
   data() {
     return {
@@ -42,6 +42,7 @@ export default {
       isModalVisible: false,
       isEditModalVisible: false,
       isNewAppModalVisible: false,
+      isAdmin: false,
       form: {
         name: '',
         description: '',
@@ -54,6 +55,8 @@ export default {
   },
   created() {
     console.log("Component created");
+    this.checkAdminStatus();
+    console.log(this.isAdmin)
   },
   mounted() {
     try {
@@ -143,6 +146,28 @@ export default {
         this.apiError = "Failed to delete application.";
       }
       await this.fetchApplications();
+    },
+
+    async checkAdminStatus() {
+      try {
+        if (!this.keycloak || !this.keycloak.authenticated) {
+          console.error('Benutzer nicht authentifiziert');
+          return;
+        }
+        const token = this.keycloak.token;
+        const response = await axios.get('http://localhost:8085/realms/test/protocol/openid-connect/userinfo', {
+          headers: 
+          {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.data.resource_access["vue-app"].roles.includes("admin")) {
+          this.isAdmin = true;
+        }
+      } catch (error) {
+        console.error('Fehler beim Abrufen des Admin-Status:', error);
+      }
     },
 
     handleSidebarToggle(newState) {
