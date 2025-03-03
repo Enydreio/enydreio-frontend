@@ -11,7 +11,7 @@
 
       <div class="profile-section">
         <img src="@/assets/avatar.svg" alt="User Avatar" class="avatar">
-        <h3>John Doe</h3>
+        <h3>{{ user.preferred_username }}</h3>
       </div>
       <nav class="nav-links">
         <router-link to="/" class="nav-link">Apps</router-link>

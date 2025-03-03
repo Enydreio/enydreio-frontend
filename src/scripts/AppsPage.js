@@ -184,6 +184,10 @@ export default {
 
     toggleView() {
       this.isGridView = !this.isGridView;
+    },
+
+    toggleCategorySort() {
+      this.isCategoryView = !this.isCategoryView;
     }
   },
   computed: {
@@ -210,5 +214,19 @@ export default {
 
       return filtered;
     },
+    sortedGroupedApps() {
+      const grouped = this.filteredApps.reduce((acc, app) => {
+        (acc[app.category] = acc[app.category] || []).push(app);
+        return acc;
+      }, {});
+      return Object.keys(grouped)
+        .sort()
+        .reduce((acc, key) => {
+          acc[key] = grouped[key];
+          return acc;
+        },
+         {}
+      );
+    }
   },
 };
