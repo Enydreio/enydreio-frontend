@@ -30,13 +30,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/*.grid-view {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1vw;
-}*/
-
 .grid-view {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
@@ -47,7 +40,7 @@
   flex-direction: column;
   align-items: center;
   height: 25vh;
-  width: 17.8vw; 
+  width: 95%; 
   border: 1px solid #ddd;
   border-radius: 5px;
   text-align: center;
@@ -146,7 +139,8 @@ tr:hover {
 
 #create-button {
   margin-top: 1%;
-  width: 10%;
+  min-width: 10%;
+  width: auto;
 }
 
 .link {
@@ -185,4 +179,25 @@ th, td {
 
 th {
   width: 100px; /* Initiale Breite der Spalten, wenn gewünscht */
+}
+
+@media screen and (max-width: 1500px) {
+  .grid-view {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .grid-view {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid-view {
+    display: grid;
+    grid-template-columns: 100%;
+  }
 }
