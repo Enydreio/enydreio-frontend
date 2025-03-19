@@ -13,8 +13,9 @@
         <img src="@/assets/avatar.svg" alt="User Avatar" class="avatar">
         <h3>{{ user.preferred_username }}</h3>
       </div>
-      <nav class="nav-links">
-        <router-link to="/" class="nav-link">Apps</router-link>
+      <nav class="nav-links"> 
+        <router-link to="/" class="nav-link">Landing Page</router-link>
+        <RouterLink to="/apps" class="nav-link">Apps</RouterLink>
         <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
         <router-link to="/settings" class="nav-link">Settings</router-link>
       </nav>

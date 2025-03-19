@@ -24,17 +24,22 @@
 
 .apps-list {
   overflow-y: auto;
-  background-color: white;
+  background: #f9f9f9;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.grid-view {
+/*.grid-view {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1vw;
+}*/
+
+.grid-view {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
 }
 
 .grid-item {
@@ -48,6 +53,7 @@
   text-align: center;
   background-color: #f9f9f9;
   padding: .5%;
+  margin-bottom: 2vh;
 }
 
 table {
@@ -80,7 +86,7 @@ tr:hover {
 }
 
 .crud-button, #logout-button {
-  width: 30%;
+  width: 98%;
   padding: 5px 10px;
   margin-right: 5px;
   border: none;
@@ -150,6 +156,8 @@ tr:hover {
 
 .crud-buttons {
   min-width: 13%;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
 .name {

@@ -57,19 +57,7 @@
 .charts-section {
   margin-bottom: 20px;
   margin-top: 20px;
-}
-
-.recent-activity {
-  margin-top: 20px;
-}
-
-.recent-activity ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.recent-activity li {
-  margin-bottom: 10px;
+  height: 75vh;
 }
 
 .charts-container {
@@ -80,7 +68,8 @@
 .charts-container .diagram {
   flex: 1; /* Lässt die Diagramme gleichmäßig wachsen */
   max-width: 100%; /* Verhindert, dass sie zu breit werden */
-  max-height: 20vh; /* Setzt eine maximale Höhe */
+  height: 35vh;
+  max-height: 100vh; /* Setzt eine maximale Höhe */
 }
 
 .charts-container iframe {
@@ -90,6 +79,7 @@
 
 .diagram {
   margin-bottom: 2%;
+  background: #f9f9f9;
 }
 
 .left-diagram {

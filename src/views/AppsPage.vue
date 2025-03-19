@@ -34,7 +34,7 @@
             <div v-for="app in filteredApps" :key="app.id" class="grid-item">
             <span class="name">{{ app.name }}</span>
             <a class="link" :href="app.url" target="_blank"><div class="application-image" :style="{backgroundImage: `url(${app.logo || require('@/assets/application.png')})`}"></div></a>
-            <div class="open-button-box"><button @click="viewDetails(app)" class="open-button"></button></div>
+            <!--<div class="open-button-box"><button @click="viewDetails(app)" class="open-button"></button></div>-->
           </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
                     <td><a :href="app.url" target="_blank">{{ app.url }}</a></td>
                     <td><img :src="app.logo || require('@/assets/application.png')" alt="App Logo" width="50" /></td>
                     <td class="crud-buttons">
-                      <button class="crud-button" @click="viewDetails(app)">View</button>
+                      <!--<button class="crud-button" @click="viewDetails(app)">View</button>-->
                       <button v-if="isAdmin" class="crud-button" @click="openEditModal(app)">Edit</button>
                       <button v-if="isAdmin" class="crud-button" @click="deleteApp(app.id)">Delete</button>
                     </td>
@@ -92,7 +92,7 @@
                   <td><a :href="app.url" target="_blank">{{ app.url }}</a></td>
                   <td><img :src="app.logo || require('@/assets/application.png')" alt="App Logo" width="50" /></td>
                   <td class="crud-buttons">
-                    <button id="view-button" class="crud-button" @click="viewDetails(app)">View</button>
+                    <!--<button id="view-button" class="crud-button" @click="viewDetails(app)">View</button>-->
                     <button v-if="isAdmin" id="edit-button" class="crud-button" @click="openEditModal(app)">Edit</button>
                     <button v-if="isAdmin" id="delete-button" class="crud-button" @click="deleteApp(app.ID)">Delete</button>
                   </td>
