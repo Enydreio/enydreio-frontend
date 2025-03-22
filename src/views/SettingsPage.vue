@@ -34,7 +34,7 @@
                 <th :class="{'dark-mode': isDarkMode}">First Name</th>
                 <th :class="{'dark-mode': isDarkMode}">Last Name</th>
                 <th :class="{'dark-mode': isDarkMode}">Mail</th>
-                <th :class="{'dark-mode': isDarkMode}">Rolle</th>
+                <th :class="{'dark-mode': isDarkMode}">Role</th>
               </tr>
             </thead>
             <tbody>
