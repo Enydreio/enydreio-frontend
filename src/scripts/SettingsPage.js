@@ -13,12 +13,16 @@ export default {
   },
   data() {
     return {
+      initOptions: null,
       isSidebarVisible: true,
       isAdmin: false,
       users: [],
+      filtered: '',
+      searchQuery: '',
     };
   },
   async created() {
+    await this.getInitOptions();
     await this.checkAdminStatus();
     if (this.isAdmin) {
       await this.fetchUsers();
@@ -35,14 +39,14 @@ export default {
           return;
         }
         const token = this.keycloak.token;
-        const response = await axios.get('http://localhost:8085/realms/test/protocol/openid-connect/userinfo', {
+        const response = await axios.get(`http://localhost:8085/realms/${this.initOptions.realm}/protocol/openid-connect/userinfo`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`
           }
         });
 
-        if (response.data.resource_access["vue-app"].roles.includes("admin")) {
+        if (response.data.resource_access[this.initOptions.clientId].roles.includes("admin")) {
           this.isAdmin = true;
         }
       } catch (error) {
@@ -50,10 +54,16 @@ export default {
       }
     },
 
+    async getInitOptions() {
+      const response = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/keycloak-init-options`);
+      this.initOptions = response.data;
+      return this.initOptions;
+    },
+
     async fetchUsers() {
       try {
         const token = this.keycloak.token;
-        const response = await axios.get('http://localhost:8085/admin/realms/test/users', {
+        const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`,
@@ -84,7 +94,7 @@ export default {
     async getClients() {
       try {
         const token = this.keycloak.token;
-        const response = await axios.get('http://localhost:8085/admin/realms/test/clients', {
+        const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/clients`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`,
@@ -109,7 +119,7 @@ export default {
     async getRoleId(clientId) {
       try {
         const token = this.keycloak.token;
-        const response = await axios.get(`http://localhost:8085/admin/realms/test/clients/${clientId}/roles`, {
+        const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/clients/${clientId}/roles`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`,
@@ -125,9 +135,9 @@ export default {
     async getUserRoles(userId) {
       const token = this.keycloak.token;
       const clients = await this.getClients()
-      const clientId = this.getClientId(await clients, 'vue-app')
+      const clientId = this.getClientId(await clients, this.initOptions.clientId)
 
-      const response = await axios.get(`http://localhost:8085/admin/realms/test/users/${userId}/role-mappings/clients/${clientId}`,
+      const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users/${userId}/role-mappings/clients/${clientId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -143,9 +153,9 @@ export default {
     async getAvailableUserRoles(userId) {
       const token = this.keycloak.token;
       const clients = await this.getClients()
-      const clientId = this.getClientId(await clients, 'vue-app')
+      const clientId = this.getClientId(await clients, this.initOptions.clientId)
 
-      const response = await axios.get(`http://localhost:8085/admin/realms/test/users/${userId}/role-mappings/clients/${clientId}/available`,
+      const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users/${userId}/role-mappings/clients/${clientId}/available`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -162,13 +172,13 @@ export default {
       const availableRoles = await this.getAvailableUserRoles(user.id);
       const roles = await this.getUserRoles(user.id);
       const clients = await this.getClients()
-      const clientId = this.getClientId(await clients, 'vue-app')
+      const clientId = this.getClientId(await clients, this.initOptions.clientId)
       console.log(roles)
       console.log(roles[0].id)
       console.log(roles[0].name)
 
       try {
-        await axios.delete(`http://localhost:8085/admin/realms/test/users/${user.id}/role-mappings/clients/${clientId}`,
+        await axios.delete(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users/${user.id}/role-mappings/clients/${clientId}`,
           {
             headers: 
             {
@@ -186,7 +196,7 @@ export default {
         );
         console.log("Role removed successfully!");
 
-        await axios.post(`http://localhost:8085/admin/realms/test/users/${user.id}/role-mappings/clients/${clientId}`,
+        await axios.post(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users/${user.id}/role-mappings/clients/${clientId}`,
           [{ 
             id: availableRoles[0].id,
             name: availableRoles[0].name
@@ -204,5 +214,18 @@ export default {
         console.error('Fehler beim Ändern der Rolle:', error);
       }
     },
-  }
+    openLink(url) {
+      window.open(url, '_blank'); // Öffnet den Link in einem neuen Tab
+    },
+  },
+  computed: {
+    filteredUsers() {
+      let filtered = (Array.isArray(this.users) ? this.users : []).filter(user => {
+        if (user.username) {
+          return user.username.toLowerCase().includes(this.searchQuery.toLowerCase());
+        }
+      });
+      return filtered.sort((a, b) => a.username.localeCompare(b.username));
+    }
+  }  
 };

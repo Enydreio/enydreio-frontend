@@ -16,6 +16,7 @@ let keycloak = null;
       if (!auth) {
         window.location.reload();
       } else {
+        console.log(initOptions);
         console.log('Authenticated');
         const app = createApp(App);
         app.provide('keycloak', keycloak);

@@ -16,7 +16,6 @@ export default {
   setup() {
     // Zugriff auf die Keycloak-Instanz
     const keycloak = inject('keycloak');
-    //const checked = ref(false)
 
     // Logout-Funktion
     const logout = () => {
@@ -31,6 +30,7 @@ export default {
   },
   data() {
     return {
+      initOptions: null,
       searchQuery: '',
       sortField: '',
       sortOrder: '↑',
@@ -53,9 +53,10 @@ export default {
       apiError: null
     };
   },
-  created() {
+  async created() {
     console.log("Component created");
-    this.checkAdminStatus();
+    await this.getInitOptions();
+    await this.checkAdminStatus();
     console.log(this.isAdmin)
   },
   mounted() {
@@ -148,6 +149,12 @@ export default {
       await this.fetchApplications();
     },
 
+    async getInitOptions() {
+      const response = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/keycloak-init-options`);
+      this.initOptions = response.data;
+      return this.initOptions;
+    },
+
     async checkAdminStatus() {
       try {
         if (!this.keycloak || !this.keycloak.authenticated) {
@@ -155,14 +162,14 @@ export default {
           return;
         }
         const token = this.keycloak.token;
-        const response = await axios.get('http://localhost:8085/realms/test/protocol/openid-connect/userinfo', {
+        const response = await axios.get(`http://localhost:8085/realms/${this.initOptions.realm}/protocol/openid-connect/userinfo`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`
           }
         });
 
-        if (response.data.resource_access["vue-app"].roles.includes("admin")) {
+        if (response.data.resource_access[this.initOptions.clientId].roles.includes("admin")) {
           this.isAdmin = true;
         }
       } catch (error) {

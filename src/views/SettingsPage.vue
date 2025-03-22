@@ -5,7 +5,7 @@
         <header class="dashboard-header">
           <h1>User Management</h1>
           <div id="search-logout">
-            <input type="text" placeholder="Search..." />
+            <input type="text" placeholder="Search..."  v-model="searchQuery"/>
             <button @click="logout" id="logout-button">Logout</button>
           </div>
          </header>
@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in users" :key="user.id">
+              <tr v-for="user in filteredUsers" :key="user.id">
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.firstname }}</td>
@@ -37,6 +37,7 @@
               </tr>
             </tbody>
           </table>
+          <button @click="openLink('http://localhost:8085')" id="keycloak-button">Manage in Keycloak</button>
         </div>
         <p v-else>Kein Admin</p>
       </main>
