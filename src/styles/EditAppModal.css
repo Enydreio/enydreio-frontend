@@ -91,3 +91,8 @@
   label {
     width: 95%;
   }
+
+  label.dark-mode, .modal-content.dark-mode, .modal-body input.dark-mode {
+    background-color: #222222;
+    color: #f9f9f9;
+  }

@@ -60,7 +60,7 @@
                     <td :class="{'dark-mode': isDarkMode}">{{ app.description }}</td>
                     <td :class="{'dark-mode': isDarkMode}"><a :href="app.url" target="_blank">{{ app.url }}</a></td>
                     <td :class="{'dark-mode': isDarkMode}"><img :src="app.logo || require('@/assets/application.png')" alt="App Logo" width="50" /></td>
-                    <td :class="{'dark-mode': isDarkMode}" class="crud-buttons">
+                    <td :class="{'dark-mode': isDarkMode}" class="crud-buttons"> 
                       <!--<button class="crud-button" @click="viewDetails(app)">View</button>-->
                       <button v-if="isAdmin" class="crud-button" @click="openEditModal(app)">Edit</button>
                       <button v-if="isAdmin" class="crud-button" @click="deleteApp(app.id)">Delete</button>
