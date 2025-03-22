@@ -5,4 +5,10 @@ body {
   margin: 0;
   padding: 0;
   background: #f1f1f1;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #222222;
+  color: #f1f1f1;
 }

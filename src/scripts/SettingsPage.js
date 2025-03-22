@@ -1,6 +1,7 @@
 import SidebarToggle from '@/components/SidebarToggle.vue';
 import axios from 'axios';
 import { inject } from 'vue';
+import { ref } from 'vue';
 
 export default {
   name: 'SettingsPage',
@@ -9,7 +10,7 @@ export default {
   },
   setup() {
     const keycloak = inject('keycloak');
-
+    const checked = ref(false);
     const logout = () => {
       if (keycloak) {
         keycloak.logout(); // Loggt den Benutzer aus und leitet ihn um
@@ -18,7 +19,7 @@ export default {
       }
     };
 
-    return { logout, keycloak };
+    return { checked, logout, keycloak };
   },
   data() {
     return {
@@ -28,19 +29,55 @@ export default {
       users: [],
       filtered: '',
       searchQuery: '',
+      isDarkMode: this.getDarkModeFromCookie()
     };
+  },
+  watch: {
+    // Beim Ändern des Dark Mode wird das Cookie gesetzt
+    isDarkMode(newValue) {
+      this.setDarkModeCookie();
+      // Optional: Anpassung der Seite (Body-Hintergrund etc.)
+      if (newValue) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    }
   },
   async created() {
     await this.getInitOptions();
     await this.checkAdminStatus();
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+    }
     if (this.isAdmin) {
       await this.fetchUsers();
     }
   },
   methods: {
+    setDarkModeCookie() {
+      document.cookie = `darkMode=${this.isDarkMode}; path=/; max-age=31536000`; // max-age in Sekunden (1 Jahr)
+    },
+    
+    // Lese den Dark Mode-Wert aus dem Cookie
+    getDarkModeFromCookie() {
+      const name = "darkMode=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const cookies = decodedCookie.split(';');
+      
+      for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length) === 'true'; // Umwandeln des Werts zu boolean
+        }
+      }
+      return false; // Standardwert (false), wenn der Cookie nicht gefunden wird
+    },
+
     handleSidebarToggle(newState) {
       this.isSidebarVisible = newState;
     },
+
     async checkAdminStatus() {
       try {
         if (!this.keycloak || !this.keycloak.authenticated) {

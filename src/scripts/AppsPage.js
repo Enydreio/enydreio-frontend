@@ -50,11 +50,17 @@ export default {
         logo: '',
         category: ''
       },
-      apiError: null
+      apiError: null,
+      isDarkMode: this.getDarkModeFromCookie(),
+      lastClickedButton: 'grid',
+
     };
   },
   async created() {
     console.log("Component created");
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+    } 
     await this.getInitOptions();
     await this.checkAdminStatus();
     console.log(this.isAdmin)
@@ -67,6 +73,20 @@ export default {
     }
   },
   methods: {
+    getDarkModeFromCookie() {
+      const name = "darkMode=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const cookies = decodedCookie.split(';');
+      
+      for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length) === 'true'; // Umwandeln des Werts zu boolean
+        }
+      }
+      return false; // Standardwert (false), wenn der Cookie nicht gefunden wird
+    },
+  
     async fetchApplications() {
       try {
         const backendUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/list-applications`;
@@ -214,8 +234,12 @@ export default {
       this.sortOrder = this.sortField ? (this.sortOrder === '↑' ? '↓' : '↑') : '↑';
     },
 
-    toggleView() {
-      this.isGridView = !this.isGridView;
+    setView(isGrid) {
+      this.isGridView = isGrid;
+    },
+
+    setLastClicked(button) {
+      this.lastClickedButton = button;
     },
 
     toggleCategorySort() {

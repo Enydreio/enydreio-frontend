@@ -41,6 +41,15 @@
   gap: 20px;
 }
 
+h2 {
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h2.dark-mode {
+  color: #f9f9f9;
+}
+
 .card,
 .diagram,
 #activity-list {
@@ -80,6 +89,11 @@
 .diagram {
   margin-bottom: 2%;
   background: #f9f9f9;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.diagram.dark-mode {
+  background-color: #333333;
 }
 
 .left-diagram {
@@ -97,10 +111,16 @@
   border: none;
   border-radius: 5px;
   background-color: #1e1e2f;
-  color: white;
+  color: #f9f9f9;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 #dashboard-logout-button:hover {
   background-color: #2c2c46;
+}
+
+#dashboard-logout-button.dark-mode {
+  color: #f9f9f9;
+  background-color: #333333;
 }

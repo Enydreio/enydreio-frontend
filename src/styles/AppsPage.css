@@ -28,6 +28,11 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.apps-list.dark-mode {
+  background-color: #333333;
 }
 
 .grid-view {
@@ -47,17 +52,17 @@
   background-color: #f9f9f9;
   padding: .5%;
   margin-bottom: 2vh;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.grid-item.dark-mode {
+  background-color: #333333;
+  border: 1px solid #222222;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-}
-
-table,
-th,
-td {
-  border: 1px solid #ddd;
 }
 
 th,
@@ -68,6 +73,10 @@ td {
 
 tr:hover {
   background-color: #f1f1f1;
+}
+
+tr.dark-mode:hover {
+  background-color: #333333;
 }
 
 .active {
@@ -99,7 +108,12 @@ tr:hover {
   background-size: cover;
   cursor: pointer;
   border: none;
-  background-color: #f1f1f1;
+  background-color: #f1f1f1 !important;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#grid-view-button.dark-mode, #detail-view-button.dark-mode {
+  background-color: #222222 !important;
 }
 
 .open-button {
@@ -133,9 +147,18 @@ tr:hover {
   margin-right: 1vw;
 }
 
+#grid-view-button.dark-mode {
+  background-image: url(../assets/kachel-white.png);
+}
+
 #detail-view-button {
   background-image: url(../assets/detail.png);
 }
+
+#detail-view-button.dark-mode {
+  background-image: url(../assets/detail-white.png);
+}
+
 
 #create-button {
   margin-top: 1%;

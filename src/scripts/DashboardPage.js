@@ -19,23 +19,32 @@ export default {
     },
   data() {
     return {
-      activeAppsCount: 5,
-      inactiveAppsCount: 2,
-      totalUsers: 100,
-      resourceUsage: 75,
-      resourceUsageData: [20, 40, 60, 80, 100],
-      costData: [100, 200, 300, 400, 500],
-      recentActivities: [
-        { id: 1, description: 'User John Doe accessed App A', timestamp: '2024-09-25 12:30' },
-        { id: 2, description: 'App B encountered an error', timestamp: '2024-09-25 12:25' },
-        { id: 3, description: 'User Jane Doe updated App C', timestamp: '2024-09-25 12:20' },
-      ],
       isSidebarVisible: true, // Zustand der Sidebar
+      isDarkMode: this.getDarkModeFromCookie(),
     };
+  },
+  async created() {
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+    } 
   },
   methods: {
     handleSidebarToggle(newState) {
       this.isSidebarVisible = newState; // Sidebar Sichtbarkeit aktualisieren
-    }
+    },
+
+    getDarkModeFromCookie() {
+      const name = "darkMode=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const cookies = decodedCookie.split(';');
+      
+      for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length) === 'true'; // Umwandeln des Werts zu boolean
+        }
+      }
+      return false; // Standardwert (false), wenn der Cookie nicht gefunden wird
+    },
   }
 };
