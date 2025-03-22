@@ -39,7 +39,7 @@ export default {
           return;
         }
         const token = this.keycloak.token;
-        const response = await axios.get(`http://localhost:8085/realms/${this.initOptions.realm}/protocol/openid-connect/userinfo`, {
+        const response = await axios.get(`${this.initOptions.url}/realms/${this.initOptions.realm}/protocol/openid-connect/userinfo`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`
@@ -63,7 +63,7 @@ export default {
     async fetchUsers() {
       try {
         const token = this.keycloak.token;
-        const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users`, {
+        const response = await axios.get(`${this.initOptions.url}/admin/realms/${this.initOptions.realm}/users`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`,
@@ -94,7 +94,7 @@ export default {
     async getClients() {
       try {
         const token = this.keycloak.token;
-        const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/clients`, {
+        const response = await axios.get(`${this.initOptions.url}/admin/realms/${this.initOptions.realm}/clients`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`,
@@ -119,7 +119,7 @@ export default {
     async getRoleId(clientId) {
       try {
         const token = this.keycloak.token;
-        const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/clients/${clientId}/roles`, {
+        const response = await axios.get(`${this.initOptions.url}/admin/realms/${this.initOptions.realm}/clients/${clientId}/roles`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`,
@@ -137,7 +137,7 @@ export default {
       const clients = await this.getClients()
       const clientId = this.getClientId(await clients, this.initOptions.clientId)
 
-      const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users/${userId}/role-mappings/clients/${clientId}`,
+      const response = await axios.get(`${this.initOptions.url}/admin/realms/${this.initOptions.realm}/users/${userId}/role-mappings/clients/${clientId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -155,7 +155,7 @@ export default {
       const clients = await this.getClients()
       const clientId = this.getClientId(await clients, this.initOptions.clientId)
 
-      const response = await axios.get(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users/${userId}/role-mappings/clients/${clientId}/available`,
+      const response = await axios.get(`${this.initOptions.url}/admin/realms/${this.initOptions.realm}/users/${userId}/role-mappings/clients/${clientId}/available`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -178,7 +178,7 @@ export default {
       console.log(roles[0].name)
 
       try {
-        await axios.delete(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users/${user.id}/role-mappings/clients/${clientId}`,
+        await axios.delete(`${this.initOptions.url}/admin/realms/${this.initOptions.realm}/users/${user.id}/role-mappings/clients/${clientId}`,
           {
             headers: 
             {
@@ -196,7 +196,7 @@ export default {
         );
         console.log("Role removed successfully!");
 
-        await axios.post(`http://localhost:8085/admin/realms/${this.initOptions.realm}/users/${user.id}/role-mappings/clients/${clientId}`,
+        await axios.post(`${this.initOptions.url}/admin/realms/${this.initOptions.realm}/users/${user.id}/role-mappings/clients/${clientId}`,
           [{ 
             id: availableRoles[0].id,
             name: availableRoles[0].name
