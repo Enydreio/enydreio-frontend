@@ -102,7 +102,7 @@
           </div>
         </div>
         <button id="create-button" class="crud-button" @click="toggleCategorySort">{{ isCategoryView ? 'Disable Category-Sort' : 'Enable Category-Sort' }}</button>
-        <button id="create-button" class="crud-button" @click="openNewAppModal">{{ showAddForm ? 'Close' : 'Add Application' }}</button>
+        <button v-if="isAdmin" id="create-button" class="crud-button" @click="openNewAppModal">{{ showAddForm ? 'Close' : 'Add Application' }}</button>
       </section>
 
       <!-- Modal for Creating New App -->

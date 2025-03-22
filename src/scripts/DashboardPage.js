@@ -1,8 +1,22 @@
 import SidebarToggle from '../components/SidebarToggle.vue';
+import { inject } from 'vue';
 
 export default {
   name: 'DashboardPage',
   components: { SidebarToggle },
+  setup() {
+      const keycloak = inject('keycloak');
+  
+      const logout = () => {
+        if (keycloak) {
+          keycloak.logout(); // Loggt den Benutzer aus und leitet ihn um
+        } else {
+          console.error('Keycloak instance not found.');
+        }
+      };
+  
+      return { logout, keycloak };
+    },
   data() {
     return {
       activeAppsCount: 5,
