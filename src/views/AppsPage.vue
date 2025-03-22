@@ -22,9 +22,11 @@
           <div v-if="isCategoryView">
             <div v-for="(apps, category) in sortedGroupedApps" :key="category">
               <h2>{{ category || "No Category" }}</h2>
-              <div v-for="app in apps" :key="app.id" class="grid-item" :class="{'dark-mode': isDarkMode}">
-                <span class="name">{{ app.name }}</span>
-                <a class="link" :href="app.url" target="_blank"><div class="application-image" :style="{backgroundImage: `url(${app.logo || require('@/assets/application.png')})`}"></div></a>
+              <div class="category-grid">
+                <div v-for="app in apps" :key="app.id" class="grid-item" :class="{'dark-mode': isDarkMode}">
+                  <span class="name">{{ app.name }}</span>
+                  <a class="link" :href="app.url" target="_blank"><div class="application-image" :style="{backgroundImage: `url(${app.logo || require('@/assets/application.png')})`}"></div></a>
+                </div>
               </div>
             </div>
           </div>
