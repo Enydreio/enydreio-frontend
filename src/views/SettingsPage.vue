@@ -26,7 +26,7 @@
         </div>
         <div v-if="isAdmin" class="settings-container" :class="{'dark-mode': isDarkMode}">
           <h2 :class="{'dark-mode': isDarkMode}">User Management</h2>
-          <table>
+          <table :class="{'dark-mode': isDarkMode}">
             <thead>
               <tr :class="{'dark-mode': isDarkMode}">
                 <th :class="{'dark-mode': isDarkMode}">ID</th>

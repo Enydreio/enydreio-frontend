@@ -37,8 +37,9 @@ th, tr {
   transition: background-color 0.3s, color 0.3s;
 }
 
-th.dark-mode, tr.dark-mode {
+th.dark-mode, tr.dark-mode, td.dark-mode, table.dark-mode {
   background-color: #222222;
+  border: 1px solid #333333;
 }
 
 select {

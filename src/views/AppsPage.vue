@@ -42,7 +42,7 @@
           <div v-if="isCategoryView">
             <div v-for="(apps, category) in sortedGroupedApps" :key="category">
               <h2>{{ category || "No Category" }}</h2>
-              <table>
+              <table :class="{'dark-mode': isDarkMode}">
                 <thead>
                   <tr :class="{'dark-mode': isDarkMode}">
                     <th :class="{'dark-mode': isDarkMode}">Category</th>
@@ -72,7 +72,7 @@
           </div>
 
           <div v-else>
-            <table>
+            <table :class="{'dark-mode': isDarkMode}">
               <thead>
                 <tr :class="{'dark-mode': isDarkMode}">
                   <th :class="{'dark-mode': isDarkMode}">Category</th>
