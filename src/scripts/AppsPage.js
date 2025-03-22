@@ -162,7 +162,7 @@ export default {
           return;
         }
         const token = this.keycloak.token;
-        const response = await axios.get(`http://localhost:8085/realms/${this.initOptions.realm}/protocol/openid-connect/userinfo`, {
+        const response = await axios.get(`${this.initOptions.url}/realms/${this.initOptions.realm}/protocol/openid-connect/userinfo`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`

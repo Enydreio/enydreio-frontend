@@ -8,11 +8,13 @@ export default {
   },
   data() {
     return {
+      initOptions: null,
       isSidebarVisible: true, // Zustand der Sidebar (sichtbar oder nicht)
       user: '',
     };
   },
   async created() {
+    await this.getInitOptions();
     await this.fetchUser();
   },
   methods: {
@@ -21,10 +23,16 @@ export default {
       this.$emit('toggle', this.isSidebarVisible); // Event an die Elternkomponente weitergeben
     },
 
+    async getInitOptions() {
+      const response = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/keycloak-init-options`);
+      this.initOptions = response.data;
+      return this.initOptions;
+    },
+
     async fetchUser() {
       try {
         const token = this.keycloak.token;
-        const response = await axios.get('http://localhost:8085/realms/test/protocol/openid-connect/userinfo', {
+        const response = await axios.get(`${this.initOptions.url}/realms/${this.initOptions.realm}/protocol/openid-connect/userinfo`, {
           headers: 
           {
             'Authorization': `Bearer ${token}`,
