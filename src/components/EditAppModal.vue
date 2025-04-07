@@ -6,19 +6,19 @@
       </header>
       <div class="modal-body">
         <label :class="{'dark-mode': isDarkMode}">
-          <span>Name:</span>
+          <span>Name</span>
           <input type="text" v-model="form.name" required :class="{'dark-mode': isDarkMode}"/>
         </label>
         <label :class="{'dark-mode': isDarkMode}">
-          <span>Beschreibung:</span>
+          <span>Description</span>
           <input type="text" v-model="form.description" required :class="{'dark-mode': isDarkMode}"/>
         </label>
         <label :class="{'dark-mode': isDarkMode}">
-          <span>URL:</span>
+          <span>URL</span>
           <input type="url" v-model="form.url" required :class="{'dark-mode': isDarkMode}"/>
         </label>
         <label :class="{'dark-mode': isDarkMode}">
-          <span>Logo-URL:</span>
+          <span>Logo-URL</span>
           <input type="url" v-model="form.logo" :class="{'dark-mode': isDarkMode}"/>
         </label>
         <label :class="{'dark-mode': isDarkMode}">
