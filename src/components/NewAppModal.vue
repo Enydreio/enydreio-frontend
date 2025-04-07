@@ -11,7 +11,7 @@
           </label>
           <label :class="{'dark-mode': isDarkMode}">
             <span>Beschreibung:</span>
-            <textarea v-model="form.description" required :class="{'dark-mode': isDarkMode}"></textarea>
+            <textarea v-model="form.description" :class="{'dark-mode': isDarkMode}"></textarea>
           </label>
           <label :class="{'dark-mode': isDarkMode}">
             <span>URL:</span>
