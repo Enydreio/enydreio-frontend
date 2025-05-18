@@ -27,7 +27,7 @@
         </label>
       </div>
       <footer class="modal-footer">
-        <button @click="close" class="cancel-button">Cancel</button>
+        <button @click="close" class="cancel-button">Cancel</button>   
         <button @click="saveChanges" class="save-button">Save</button>
       </footer>
     </div>
